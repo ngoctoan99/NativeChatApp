@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Register"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textColor="@color/purple_500"/>
+    <EditText
+        android:id="@+id/editemailres"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Nhập email đăng ký"
+        android:layout_marginTop="60dp"/>
+    <EditText
+        android:id="@+id/editpassres"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Nhập password đăng ký "
+        android:inputType="textPassword"
+        android:layout_marginTop="150dp"/>
+    <Button
+        android:id="@+id/btnres1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Register"
+        android:layout_marginTop="260dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:id="@+id/haveaccount"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Have account. Login"
+        android:layout_below="@+id/btnres1"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"/>
+
+</RelativeLayout>
