@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/drawable/circle_offline.xml" value="0.1" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/drawable/circle_online.xml" value="0.1" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/drawable/edittext_style.xml" value="0.1" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.253" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_add_new_post.xml" value="0.25" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_chat.xml" value="0.1" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_login.xml" value="0.3546875" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_main.xml" value="0.3546875" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_register.xml" value="0.3546875" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_there_profile.xml" value="0.1" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/circle_online.xml" value="0.1" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/fragment_chat_list.xml" value="0.18" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/fragment_home.xml" value="0.3546875" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/fragment_profile.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/fragment_users.xml" value="0.3546875" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/row_chat_left.xml" value="0.33" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/row_chat_right.xml" value="0.1" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/row_chatlist.xml" value="0.23684210526315788" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/row_post.xml" value="0.2170767004341534" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/row_users.xml" value="0.3546875" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/menu/menu_main.xml" value="0.3546875" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

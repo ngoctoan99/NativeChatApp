@@ -10,4 +10,9 @@
         android:icon="@drawable/ic_menu_search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_add_newpost"
+        android:title="Add New Post"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_add_circle_24"/>
 </menu>

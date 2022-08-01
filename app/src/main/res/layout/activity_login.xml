@@ -25,29 +25,31 @@
         android:hint="Nhập password "
         android:inputType="textPassword"
         android:layout_marginTop="150dp"/>
+
     <Button
         android:id="@+id/btnin"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Login"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="220dp"
-        android:layout_centerHorizontal="true"/>
+        android:text="Login" />
+
     <TextView
         android:id="@+id/nothaveac"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="350dp"
         android:text="Not have account. Register"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/gglogin"
-        android:layout_width="114dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnin"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"></com.google.android.gms.common.SignInButton>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"></com.google.android.gms.common.SignInButton>
     <TextView
         android:id="@+id/recover"
         android:layout_width="wrap_content"

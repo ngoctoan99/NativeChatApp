@@ -12,13 +12,14 @@
         android:layout_width="190dp"
         android:layout_height="177dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
         android:src="@drawable/firebaselogo" />
     <Button
         android:id="@+id/btnlogin"
         android:layout_height="wrap_content"
         android:layout_width="300dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="350dp"
         android:text="Login"
         />
     <Button
@@ -26,7 +27,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="400dp"
         android:text="Register"
         />
 

@@ -15,7 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -28,9 +31,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nativeandroidapp.adapters.AdapterPost;
+import com.example.nativeandroidapp.models.ModelPost;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -49,7 +55,9 @@ import com.google.firebase.storage.StorageTaskScheduler;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.TooManyListenersException;
 
 /**
@@ -66,6 +74,7 @@ public class ProfileFragment extends Fragment {
     TextView nametv , phonetv, emailtv;
     FloatingActionButton fab;
     ProgressDialog pd;
+    RecyclerView postRecyclerView;
     private static  final int CAMERA_REQUEST_CODE = 100;
     private static  final int STORAGE_REQUEST_CODE = 200;
     private static  final int IMAGE_PICK_CAMERA_REQUEST_CODE = 300;
@@ -76,7 +85,9 @@ public class ProfileFragment extends Fragment {
     String profileOrCoverPhoto;
     StorageReference storageReference;
     String storagePath = "Users_Profile_Cover_Imgs/";
-
+    List<ModelPost> postList;
+    AdapterPost adapterPost;
+    String uid;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -133,10 +144,12 @@ public class ProfileFragment extends Fragment {
         avatar = view.findViewById(R.id.avatar);
         covertv = view.findViewById(R.id.covertv);
         fab = view.findViewById(R.id.fab);
+        postRecyclerView = view.findViewById(R.id.recyclerView_posts);
         pd =new ProgressDialog(getActivity());
         nametv = view.findViewById(R.id.nameuser);
         phonetv = view.findViewById(R.id.phoneuser);
         emailtv = view.findViewById(R.id.emailuser);
+        postList = new ArrayList<>();
         Query query = databaseReference.orderByChild("email").equalTo(firebaseUser.getEmail());
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -175,9 +188,64 @@ public class ProfileFragment extends Fragment {
                 showEditProfileDialog();
             }
         });
-
+        checkUserStatus();
+        loadMyPost();
         return view;
     }
+
+    private void loadMyPost() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        postRecyclerView.setLayoutManager(linearLayoutManager);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
+        Query query = ref.orderByChild("uid").equalTo(uid);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                postList.clear();
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    ModelPost myPost = ds.getValue(ModelPost.class);
+                    postList.add(myPost);
+                    adapterPost = new AdapterPost(getActivity(),postList);
+                    postRecyclerView.setAdapter(adapterPost);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(),""+error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void searchMyPost(String searchQuery) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        postRecyclerView.setLayoutManager(linearLayoutManager);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
+        Query query = ref.orderByChild("uid").equalTo(uid);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                postList.clear();
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    ModelPost myPost = ds.getValue(ModelPost.class);
+                    if(myPost.getpTitle().toLowerCase().contains(searchQuery.toLowerCase())|| myPost.getpDescription().toLowerCase().contains(searchQuery.toLowerCase())){
+                        postList.add(myPost);
+                    }
+                    adapterPost = new AdapterPost(getActivity(),postList);
+                    postRecyclerView.setAdapter(adapterPost);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(),""+error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private boolean checkStoragePermission() {
         boolean result = ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == (PackageManager.PERMISSION_GRANTED);
@@ -259,6 +327,24 @@ public class ProfileFragment extends Fragment {
                             Toast.makeText(getActivity(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     });
+                    if(key.equals("name")){
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
+                        Query query = ref.orderByChild("uid").equalTo(uid);
+                        query.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for(DataSnapshot ds : snapshot.getChildren()){
+                                    String child = ds.getKey();
+                                    snapshot.getRef().child(child).child("uName").setValue(value);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
                 }
                 else {
                     Toast.makeText(getActivity(),"Please enter " + key,Toast.LENGTH_SHORT).show();
@@ -406,6 +492,7 @@ public class ProfileFragment extends Fragment {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if(user != null) {
             //tvporfile.setText(user.getEmail());
+            uid = user.getUid();
         }
         else {
             startActivity(new Intent(getActivity(),MainActivity.class));
@@ -422,6 +509,29 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main,menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(!TextUtils.isEmpty(query)){
+                    searchMyPost(query);
+                }else {
+                    loadMyPost();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(!TextUtils.isEmpty(newText)){
+                    searchMyPost(newText);
+                }else {
+                    loadMyPost();
+                }
+                return false;
+            }
+        });
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -431,6 +541,9 @@ public class ProfileFragment extends Fragment {
         if(id == R.id.action_logout) {
             firebaseAuth.signOut();
             checkUserStatus();
+        }
+        if(id == R.id.action_add_newpost) {
+            startActivity(new Intent(getActivity(), AddNewPost.class));
         }
         return super.onOptionsItemSelected(item);
     }

@@ -1,9 +1,11 @@
 package com.example.nativeandroidapp.models;
 
 public class ModelUsers {
-    String name ,email, image ,phone ,cover, search, uid;
+    String name ,email, image ,phone ,cover, search, uid, onlineStatus, typingTo;
 
-    public ModelUsers(String name, String email, String image, String phone, String cover, String search, String uid) {
+    public ModelUsers() {}
+
+    public ModelUsers(String name, String email, String image, String phone, String cover, String search, String uid, String onlineStatus, String typingTo) {
         this.name = name;
         this.email = email;
         this.image = image;
@@ -11,8 +13,9 @@ public class ModelUsers {
         this.cover = cover;
         this.search = search;
         this.uid = uid;
+        this.onlineStatus = onlineStatus;
+        this.typingTo = typingTo;
     }
-    public ModelUsers(){}
 
     public String getName() {
         return name;
@@ -68,5 +71,21 @@ public class ModelUsers {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getOnlineStatus() {
+        return onlineStatus;
+    }
+
+    public void setOnlineStatus(String onlineStatus) {
+        this.onlineStatus = onlineStatus;
+    }
+
+    public String getTypingTo() {
+        return typingTo;
+    }
+
+    public void setTypingTo(String typingTo) {
+        this.typingTo = typingTo;
     }
 }

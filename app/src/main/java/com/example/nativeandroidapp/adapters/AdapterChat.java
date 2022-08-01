@@ -1,12 +1,17 @@
 package com.example.nativeandroidapp.adapters;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,10 +20,16 @@ import com.example.nativeandroidapp.ModelChat;
 import com.example.nativeandroidapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -50,7 +61,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
         String message = chatList.get(position).getMessage();
         String timestamp = chatList.get(position).getTimestamp();
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
@@ -63,6 +74,28 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         }catch (Exception e) {
 
         }
+
+        holder.messageLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Delete");
+                builder.setMessage("Are you sure to delete this message ?");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteMessage(position);
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+            }
+        });
         if(position == chatList.size()-1){
             if(chatList.get(position).isSeen()){
                 holder.isSeenTv.setText("Seen");
@@ -73,6 +106,33 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         }else {
             holder.isSeenTv.setVisibility(View.GONE);
         }
+    }
+
+    private void deleteMessage(int position) {
+        String myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String msgTimeStamp = chatList.get(position).getTimestamp();
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("Chats");
+        Query query = db.orderByChild("timestamp").equalTo(msgTimeStamp);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    if(ds.child("sender").getValue().equals(myUid)){
+                        ds.getRef().removeValue();
+//                        HashMap<String, Object> hashMap = new HashMap<>();
+//                        hashMap.put("message","This message was deleted...");
+//                        ds.getRef().updateChildren(hashMap);
+                    }else {
+                        Toast.makeText(context,"You can delete only your messages...",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -94,6 +154,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
     class MyHolder extends RecyclerView.ViewHolder{
         ImageView profileTTTV;
         TextView messageTv, timeTv, isSeenTv;
+        LinearLayout messageLayout ;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
@@ -101,6 +162,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
             messageTv = itemView.findViewById(R.id.messageTv);
             timeTv = itemView.findViewById(R.id.timeTv);
             isSeenTv = itemView.findViewById(R.id.isSeenTv);
+            messageLayout = itemView.findViewById(R.id.messageLayout);
         }
     }
 }

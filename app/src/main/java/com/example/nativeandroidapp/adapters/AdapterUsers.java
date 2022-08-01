@@ -1,6 +1,8 @@
 package com.example.nativeandroidapp.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nativeandroidapp.ChatActivity;
+import com.example.nativeandroidapp.ThereProfileActivity;
 import com.example.nativeandroidapp.models.ModelUsers;
 import com.example.nativeandroidapp.R;
 import com.squareup.picasso.Picasso;
@@ -54,9 +57,22 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                   Intent intent = new Intent(context, ChatActivity.class);
-                   intent.putExtra("hisUid", hisUID);
-                   context.startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setItems(new String[]{"Profile", "Chat"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which == 0){
+                            Intent intent = new Intent(context, ThereProfileActivity.class);
+                            intent.putExtra("uid",hisUID);
+                            context.startActivity(intent);
+                        }if (which == 1){
+                            Intent intent = new Intent(context, ChatActivity.class);
+                            intent.putExtra("hisUid", hisUID);
+                            context.startActivity(intent);
+                        }
+                    }
+                });
+                builder.create().show();
             }
         });
     }

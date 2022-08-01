@@ -6,20 +6,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.nativeandroidapp.notification.Token;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class DashboardActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ActionBar actionBar;
-
+    String mUID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +39,19 @@ public class DashboardActivity extends AppCompatActivity {
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
         ft1.replace(R.id.content1,fragment1,"");
         ft1.commit();
+        checkUserStatus();
+    }
+
+    @Override
+    protected void onResume() {
+        checkUserStatus();
+        super.onResume();
+    }
+
+    public  void updateToken(String token){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token mtoken = new Token(token);
+        ref.child(mUID).setValue(mtoken);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -75,7 +93,12 @@ public class DashboardActivity extends AppCompatActivity {
     private void checkUserStatus() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if(user != null) {
-            //tvporfile.setText(user.getEmail());
+            mUID = user.getUid();
+            SharedPreferences sp =  getSharedPreferences("SP_USER", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("Current_USERID", mUID);
+            editor.apply();
+            updateToken(FirebaseInstanceId.getInstance().getToken());
         }
         else {
             startActivity(new Intent(DashboardActivity.this,MainActivity.class));
