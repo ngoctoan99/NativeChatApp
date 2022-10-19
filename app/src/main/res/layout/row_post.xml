@@ -41,6 +41,7 @@
             <TextView
                 android:id="@+id/pTimes"
                 android:text="33 min"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 ></TextView>
@@ -60,6 +61,7 @@
         android:layout_height="wrap_content"
         android:text = "Title"
         android:autoLink="all"
+        android:textColor="@color/black"
         ></TextView>
     <TextView
         android:id="@+id/pDescriptionpost"
@@ -78,6 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="1.2k Likes"
+        android:layout_margin="5dp"
         android:textColor="@color/purple_200"
         ></TextView>
     <View

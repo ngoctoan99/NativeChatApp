@@ -186,6 +186,7 @@ public class ThereProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_logout) {
+            PreferencesUtils.deleteAll(this);
             firebaseAuth.signOut();
             checkUserStatus();
         }

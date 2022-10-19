@@ -1,6 +1,5 @@
 package com.example.nativeandroidapp.adapters;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,7 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nativeandroidapp.ModelChat;
+import com.example.nativeandroidapp.models.ModelChat;
 import com.example.nativeandroidapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,7 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -64,10 +62,19 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
     public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
         String message = chatList.get(position).getMessage();
         String timestamp = chatList.get(position).getTimestamp();
+        String type = chatList.get(position).getType();
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(Long.parseLong(timestamp));
         String dateTime = DateFormat.format("dd/MM/yyyy hh:mm:aa",cal).toString();
-        holder.messageTv.setText(message);
+        if(type.equals("text")){
+            holder.messageTv.setVisibility(View.VISIBLE);
+            holder.messageIv.setVisibility(View.GONE);
+            holder.messageTv.setText(message);
+        }else {
+            holder.messageTv.setVisibility(View.GONE);
+            holder.messageIv.setVisibility(View.VISIBLE);
+            Picasso.get().load(message).placeholder(R.drawable.ic_baseline_image_24).into(holder.messageIv);
+        }
         holder.timeTv.setText(dateTime);
         try{
             Picasso.get().load(imageUrl).into(holder.profileTTTV);
@@ -152,12 +159,13 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
     }
 
     class MyHolder extends RecyclerView.ViewHolder{
-        ImageView profileTTTV;
+        ImageView profileTTTV , messageIv;
         TextView messageTv, timeTv, isSeenTv;
         LinearLayout messageLayout ;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
+            messageIv = itemView.findViewById(R.id.messageIv);
             profileTTTV = itemView.findViewById(R.id.profilehis);
             messageTv = itemView.findViewById(R.id.messageTv);
             timeTv = itemView.findViewById(R.id.timeTv);

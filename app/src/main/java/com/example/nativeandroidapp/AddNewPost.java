@@ -169,6 +169,8 @@ public class AddNewPost extends AppCompatActivity {
         hashMap.put("pTitle", titles);
         hashMap.put("pDescription", descriptions);
         hashMap.put("pImage", "noImage");
+        hashMap.put("pLikes","0");
+        hashMap.put("pComments","0");
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
         ref.child(editPostId).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -181,6 +183,7 @@ public class AddNewPost extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
                 Toast.makeText(AddNewPost.this,""+e.getMessage(),Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
@@ -209,6 +212,8 @@ public class AddNewPost extends AppCompatActivity {
                         hashMap.put("pTitle", titles);
                         hashMap.put("pDescription", descriptions);
                         hashMap.put("pImage", downloadUri);
+                        hashMap.put("pLikes","0");
+                        hashMap.put("pComments","0");
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
                         ref.child(editPostId).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -221,6 +226,7 @@ public class AddNewPost extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 pd.dismiss();
                                 Toast.makeText(AddNewPost.this,""+e.getMessage(),Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         });
                     }
@@ -262,12 +268,15 @@ public class AddNewPost extends AppCompatActivity {
                                 hashMap.put("pTitle", titles);
                                 hashMap.put("pDescription", descriptions);
                                 hashMap.put("pImage", downloadUri);
+                                hashMap.put("pLikes","0");
+                                hashMap.put("pComments","0");
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
                                 ref.child(editPostId).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         pd.dismiss();
                                         Toast.makeText(AddNewPost.this,"Update...", Toast.LENGTH_SHORT).show();
+                                        finish();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -356,17 +365,20 @@ public class AddNewPost extends AppCompatActivity {
                         hashMap.put("pDescription", descriptions);
                         hashMap.put("pImage",dowloadUri);
                         hashMap.put("pTime", timeStamp);
+                        hashMap.put("pLikes","0");
+                        hashMap.put("pComments","0");
 
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
                         ref.child(timeStamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 pd.dismiss();
-                                Toast.makeText(AddNewPost.this,"Post published",Toast.LENGTH_SHORT).show();
-                                title.setText("");
-                                description.setText("");
-                                imagePost.setImageURI(null);
-                                image_uri = null;
+//                                Toast.makeText(AddNewPost.this,"Post published",Toast.LENGTH_SHORT).show();
+//                                title.setText("");
+//                                description.setText("");
+//                                imagePost.setImageURI(null);
+//                                image_uri = null;
+                                finish();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -395,6 +407,8 @@ public class AddNewPost extends AppCompatActivity {
             hashMap.put("pDescription", descriptions);
             hashMap.put("pImage","noImage");
             hashMap.put("pTime", timeStamp);
+            hashMap.put("pLikes","0");
+            hashMap.put("pComments","0");
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
             ref.child(timeStamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -406,6 +420,7 @@ public class AddNewPost extends AppCompatActivity {
                     description.setText("");
                     imagePost.setImageURI(null);
                     image_uri = null;
+                    finish();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -505,6 +520,7 @@ public class AddNewPost extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_logout) {
+            PreferencesUtils.deleteAll(this);
             firebaseAuth.signOut();
             checkUserStatus();
         }

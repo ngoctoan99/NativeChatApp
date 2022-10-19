@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".RegisterActivity">
     <TextView
         android:layout_height="wrap_content"
@@ -12,19 +13,27 @@
         android:textSize="30dp"
         android:gravity="center"
         android:textColor="@color/purple_500"/>
+
     <EditText
         android:id="@+id/editemailin"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:paddingStart="15dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/bgr_border_16"
         android:hint="Nhập email"
-        android:layout_marginTop="60dp"/>
+        android:textColorHint="@color/white" />
+
     <EditText
         android:id="@+id/editpassin"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/bgr_border_16"
         android:hint="Nhập password "
-        android:inputType="textPassword"
-        android:layout_marginTop="150dp"/>
+        android:textColorHint="@color/white"
+        android:paddingStart="15dp"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnin"

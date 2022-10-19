@@ -4,20 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 
 import com.example.nativeandroidapp.adapters.AdapterChatlist;
+import com.example.nativeandroidapp.models.ModelChat;
 import com.example.nativeandroidapp.models.ModelChatlist;
 import com.example.nativeandroidapp.models.ModelUsers;
 import com.google.firebase.auth.FirebaseAuth;
@@ -118,7 +116,11 @@ public class ChatListFragment extends Fragment {
                         continue;
                     }
                     if(chat.getReceiver().equals(currentUser.getUid()) && chat.getSender().equals(uid)|| chat.getReceiver().equals(uid) && chat.getSender().equals(currentUser.getUid())){
-                        theLastMess = chat.getMessage();
+                        if(chat.getType() != null && chat.getType().equals("image") ){
+                            theLastMess = "Sent a image";
+                        }else {
+                            theLastMess = chat.getMessage();
+                        }
                     }
                 }
                 adapterChatlist.setLastMessMap(uid, theLastMess);
@@ -144,6 +146,7 @@ public class ChatListFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_logout) {
+            PreferencesUtils.deleteAll(getContext());
             firebaseAuth.signOut();
             checkUserStatus();
         }

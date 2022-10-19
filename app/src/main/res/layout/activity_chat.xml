@@ -57,6 +57,12 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/attachButton"
+            android:layout_width="50dp"
+            android:background="@null"
+            android:src="@drawable/ic_baseline_attach_file_24"
+            android:layout_height="50dp"></ImageButton>
         <EditText
             android:id="@+id/chatmessage"
             android:layout_weight="1"

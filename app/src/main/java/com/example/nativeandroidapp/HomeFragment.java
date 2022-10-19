@@ -1,6 +1,7 @@
 package com.example.nativeandroidapp;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,18 +12,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.nativeandroidapp.adapters.AdapterPost;
 import com.example.nativeandroidapp.models.ModelPost;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,8 +35,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -40,6 +48,7 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     List<ModelPost> postList;
     AdapterPost adapterPost;
+    int click = 0 ;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -70,7 +79,28 @@ public class HomeFragment extends Fragment {
                     ModelPost modelPost = ds.getValue(ModelPost.class);
                     postList.add(modelPost);
                     adapterPost = new AdapterPost(getActivity(), postList);
+                    adapterPost.setClickInterface(new AdapterPost.ClickInterface() {
+                        @Override
+                        public void onSelected(ModelPost post) {
+                            click ++ ;
+                            if(click % 2 == 0){
+                                post.setEnable(false);
+                                int count  = Integer.parseInt(post.getpLikes()) - 1 ;
+                                post.setpLikes(count +"");
+                                putCountLike(post);
+                                adapterPost.notifyDataSetChanged();
+                            }else if(click % 2 != 0){
+                                post.setEnable(true);
+                                int count  = Integer.parseInt(post.getpLikes()) + 1 ;
+                                post.setpLikes(count +"");
+                                putCountLike(post);
+                                adapterPost.notifyDataSetChanged();
+                            }
+                        }
+                    });
+                    Log.d("Toan",modelPost.toString());
                     recyclerView.setAdapter(adapterPost);
+                    adapterPost.notifyDataSetChanged();
                 }
             }
 
@@ -79,6 +109,65 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getActivity(),""+error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private  void putCountLike(ModelPost post){
+        if(post.getpImage() != null && !post.getpImage().equals("noImage")){
+            HashMap<Object,String> hashMap = new HashMap<>();
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            assert user != null;
+            String uid = user.getUid();
+            hashMap.put("uid",post.getUid());
+            hashMap.put("uName",post.getuName());
+            hashMap.put("uEmail",post.getuEmail());
+            hashMap.put("uDp",post.getuDp());
+            hashMap.put("pId",post.getpTime());
+            hashMap.put("pTitle",post.getpTitle());
+            hashMap.put("pDescription", post.getpDescription());
+            hashMap.put("pImage",post.getpImage());
+            hashMap.put("pTime", post.getpTime());
+            hashMap.put("pLikes",post.getpLikes());
+            hashMap.put("pComments","0");
+            hashMap.put("uIdLikes",uid);
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
+            ref.child(post.getpTime()).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(),""+ e.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            assert user != null;
+            String uid = user.getUid();
+            HashMap<Object, String> hashMap =  new HashMap<>();
+            hashMap.put("uid",post.getUid());
+            hashMap.put("uName",post.getuName());
+            hashMap.put("uEmail",post.getuEmail());
+            hashMap.put("uDp",post.getuDp());
+            hashMap.put("pId",post.getpTime());
+            hashMap.put("pTitle",post.getpTitle());
+            hashMap.put("pDescription", post.getpDescription());
+            hashMap.put("pImage","noImage");
+            hashMap.put("pTime", post.getpTime());
+            hashMap.put("pLikes",post.getpLikes());
+            hashMap.put("pComments","0");
+            hashMap.put("uIdLikes",uid);
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
+            ref.child(post.getpTime()).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                }
+            });
+        }
     }
     private void searchPosts(String searchQuery){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
@@ -154,6 +243,7 @@ public class HomeFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_logout) {
+            PreferencesUtils.deleteAll(getContext());
             firebaseAuth.signOut();
             checkUserStatus();
         }

@@ -1,9 +1,13 @@
 package com.example.nativeandroidapp.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nativeandroidapp.AddNewPost;
@@ -37,6 +42,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -45,7 +51,8 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
     Context context;
     List<ModelPost> posts ;
     String myUid;
-
+    private ClickInterface clickInterface;
+    private int count = 0 ;
     public AdapterPost(Context context, List<ModelPost> posts) {
         this.context = context;
         this.posts = posts;
@@ -69,6 +76,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
         String pTitle = posts.get(position).getpTitle();
         String pTime = posts.get(position).getpTime();
         String pDescr= posts.get(position).getpDescription();
+        String pLike = posts.get(position).getpLikes();
         String pImage= posts.get(position).getpImage();
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(Long.parseLong(pTime));
@@ -78,6 +86,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
         holder.pTime.setText(pTimeStamp);
         holder.pTitle.setText(pTitle);
         holder.pDescription.setText(pDescr);
+        holder.pLikes.setText(pLike + " Lượt thích");
         try{
             Picasso.get().load(uDp).placeholder(R.drawable.ic_face_default).into(holder.uPicture);
 
@@ -96,6 +105,19 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
                 e.getMessage();
             }
         }
+        Log.d("toan",posts.get(position).isEnable() + "");
+        String check = posts.get(position).isEnable()+"";
+        if(check.equals("true")){
+            holder.likebtn.setTextColor(context.getResources().getColor(R.color.blue));
+            Drawable img = context.getResources().getDrawable(R.drawable.ic_thumb_up_24_blue);
+            img.setBounds(0, 0, 60, 60);
+            holder.likebtn.setCompoundDrawables(img, null, null, null);
+        }else {
+            holder.likebtn.setTextColor(context.getResources().getColor(R.color.black));
+            Drawable img = context.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_24);
+            img.setBounds(0, 0, 60, 60);
+            holder.likebtn.setCompoundDrawables(img, null, null, null);
+        }
         holder.moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,19 +127,40 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
         holder.likebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Like",Toast.LENGTH_SHORT).show();
+                clickInterface.onSelected(posts.get(position));
             }
         });
+
+//        holder.likebtn.setOnClickListener(new View.OnClickListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//            @Override
+//            public void onClick(View view) {
+//                count ++ ;
+//                if(count % 2 != 0){
+//                }else {
+//                    holder.likebtn.setTextColor(context.getResources().getColor(R.color.black));
+//                    Drawable img = context.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_24);
+//                    img.setBounds(0, 0, 60, 60);
+//                    holder.likebtn.setCompoundDrawables(img, null, null, null);
+//                }
+//            }
+//        });
         holder.commentbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Comment",Toast.LENGTH_SHORT).show();
             }
         });
         holder.sharebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Share",Toast.LENGTH_SHORT).show();
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_TEXT,posts.get(position).getUid());
+                    context.startActivity(Intent.createChooser(shareIntent, "Chia sẻ với bạn bè và gia đình!"));
+                } catch (Exception e) {
+                    e.toString();
+                }
             }
         });
         holder.profileLayout.setOnClickListener(new View.OnClickListener() {
@@ -226,7 +269,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
 
     class MyHolder extends RecyclerView.ViewHolder {
         ImageView uPicture, pImage;
-        TextView uName, pTime , pDescription, pLike, pTitle ;
+        TextView uName, pTime , pDescription, pLikes, pTitle ;
         ImageButton moreBtn;
         Button likebtn , commentbtn, sharebtn;
         LinearLayout profileLayout;
@@ -239,12 +282,20 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
             pTime = itemView.findViewById(R.id.pTimes);
             pTitle = itemView.findViewById(R.id.pTitles);
             pDescription = itemView.findViewById(R.id.pDescriptionpost);
-            pLike = itemView.findViewById(R.id.pLikes);
+            pLikes = itemView.findViewById(R.id.pLikes);
             moreBtn = itemView.findViewById(R.id.moreBtn);
             likebtn = itemView.findViewById(R.id.likebtn);
             commentbtn = itemView.findViewById(R.id.commentbtn);
             sharebtn = itemView.findViewById(R.id.sharebtn);
             profileLayout = itemView.findViewById(R.id.profileLayout);
         }
+    }
+
+    public void setClickInterface(ClickInterface clickInterface) {
+        this.clickInterface = clickInterface;
+    }
+
+    public interface ClickInterface {
+        void onSelected(ModelPost post);
     }
 }

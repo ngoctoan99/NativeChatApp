@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
     <TextView
@@ -12,19 +13,27 @@
         android:textSize="30dp"
         android:gravity="center"
         android:textColor="@color/purple_500"/>
+
     <EditText
         android:id="@+id/editemailres"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="60dp"
+        android:paddingStart="15dp"
+        android:background="@drawable/bgr_border_16"
         android:hint="Nhập email đăng ký"
-        android:layout_marginTop="60dp"/>
+        android:textColorHint="@color/white" />
+
     <EditText
         android:id="@+id/editpassres"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/bgr_border_16"
         android:hint="Nhập password đăng ký "
         android:inputType="textPassword"
-        android:layout_marginTop="150dp"/>
+        android:paddingStart="15dp"
+        android:textColorHint="@color/white" />
     <Button
         android:id="@+id/btnres1"
         android:layout_height="wrap_content"
