@@ -2,8 +2,8 @@ package com.example.nativeandroidapp.models;
 
 public class ModelPost {
     String pId, pTitle, pDescription, pImage,pTime, uid, uEmail, uDp, uName , pLikes
-            , pComments , uIdLikes;
-    boolean isEnable ;
+                , pComments , uIdLikes;
+    boolean isEnable = false;
     public ModelPost(){}
 
     public ModelPost(String pId, String pTitle, String pDescription, String pImage, String pTime, String uid, String uEmail, String uDp, String uName, String pLikes, String pComments, String uIdLikes, boolean isEnable) {

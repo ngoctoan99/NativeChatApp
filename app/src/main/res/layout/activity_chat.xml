@@ -7,49 +7,61 @@
     android:background="#D2D7D8"
     android:layout_height="match_parent"
     tools:context=".ChatActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarsds"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/purple_500"
-        >
+        android:background="@color/purple_500">
+
+        <ImageView
+            android:id="@+id/btn_back_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_back"></ImageView>
+
         <com.blogspot.atifsoftwares.circularimageview.CircularImageView
             android:id="@+id/profiless"
-            android:layout_height="35dp"
             android:layout_width="35dp"
+            android:layout_height="35dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_face_default"
-            />
+            android:src="@drawable/ic_face_default" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginStart="30dp"
             android:gravity="center"
-            android:layout_marginStart="20dp">
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/yournametv"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Your Name"
                 android:textColor="@color/white"
                 android:textSize="15dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/userStatusTV"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="online"
                 android:textColor="@color/white"
                 android:textSize="15dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/chat_layout"
-        android:layout_below="@+id/toolbarsds"/>
+        android:layout_below="@+id/toolbarsds"
+        android:transcriptMode="alwaysScroll" />
     <LinearLayout
         android:id="@+id/chat_layout"
         android:layout_height="wrap_content"

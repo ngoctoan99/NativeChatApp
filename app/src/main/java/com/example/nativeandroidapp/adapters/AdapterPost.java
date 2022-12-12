@@ -33,6 +33,7 @@ import com.example.nativeandroidapp.models.ModelPost;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -51,6 +52,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
     Context context;
     List<ModelPost> posts ;
     String myUid;
+    FirebaseAuth firebaseAuth;
     private ClickInterface clickInterface;
     private int count = 0 ;
     public AdapterPost(Context context, List<ModelPost> posts) {
@@ -107,7 +109,9 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
         }
         Log.d("toan",posts.get(position).isEnable() + "");
         String check = posts.get(position).isEnable()+"";
-        if(check.equals("true")){
+
+
+        if(posts.get(position).getuIdLikes() != null && posts.get(position).getuIdLikes().equals(myUid)){
             holder.likebtn.setTextColor(context.getResources().getColor(R.color.blue));
             Drawable img = context.getResources().getDrawable(R.drawable.ic_thumb_up_24_blue);
             img.setBounds(0, 0, 60, 60);

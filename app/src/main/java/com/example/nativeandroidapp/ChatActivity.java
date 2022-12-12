@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -78,6 +79,7 @@ public class ChatActivity extends AppCompatActivity {
     EditText messageedit;
     ImageButton sendbtn;
     ImageButton attachButton ;
+    ImageView btn_back_chat ;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference userdbR;
@@ -97,6 +99,7 @@ public class ChatActivity extends AppCompatActivity {
     String [] cameraPermissions;
     String [] galleryPermission;
     Uri image_uri = null;
+    boolean shouldAllowBack = false ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +115,8 @@ public class ChatActivity extends AppCompatActivity {
         sendbtn = findViewById(R.id.sendbtn);
         attachButton = findViewById(R.id.attachButton);
 
+        btn_back_chat = findViewById(R.id.btn_back_chat);
+
         galleryPermission  = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         cameraPermissions  = new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
@@ -119,7 +124,12 @@ public class ChatActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-
+        btn_back_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
         Intent intent = getIntent();
         hisUid = intent.getStringExtra("hisUid");
@@ -245,7 +255,6 @@ public class ChatActivity extends AppCompatActivity {
                     adapterChat = new AdapterChat(ChatActivity.this,chatList,hisimage);
                     adapterChat.notifyDataSetChanged();
                     recyclerView.setAdapter(adapterChat);
-
                 }
             }
 
@@ -567,8 +576,8 @@ public class ChatActivity extends AppCompatActivity {
             case CAMERA_REQUEST:{
                 if(grantResults.length>0){
                     boolean cameraAccept = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    boolean storageAccept = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    if (cameraAccept && storageAccept){
+//                    boolean storageAccept = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    if (cameraAccept ){
                         PickFromCamera();
                     }else {
 
@@ -613,4 +622,16 @@ public class ChatActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (shouldAllowBack) {
+            super.onBackPressed();
+        } else {
+            doSomething();
+        }
+    }
+
+    private void doSomething() {
+        Toast.makeText(this, "You can't back physical button", Toast.LENGTH_SHORT).show();
+    }
 }

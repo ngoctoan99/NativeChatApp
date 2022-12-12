@@ -82,20 +82,21 @@ public class HomeFragment extends Fragment {
                     adapterPost.setClickInterface(new AdapterPost.ClickInterface() {
                         @Override
                         public void onSelected(ModelPost post) {
-                            click ++ ;
-                            if(click % 2 == 0){
-                                post.setEnable(false);
-                                int count  = Integer.parseInt(post.getpLikes()) - 1 ;
-                                post.setpLikes(count +"");
-                                putCountLike(post);
-                                adapterPost.notifyDataSetChanged();
-                            }else if(click % 2 != 0){
-                                post.setEnable(true);
-                                int count  = Integer.parseInt(post.getpLikes()) + 1 ;
-                                post.setpLikes(count +"");
-                                putCountLike(post);
-                                adapterPost.notifyDataSetChanged();
-                            }
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            assert user != null;
+                            String uid = user.getUid();
+                           if( post.getuIdLikes() != null && post.getuIdLikes().equals(uid)){
+                               int count  = Integer.parseInt(post.getpLikes()) - 1 ;
+                               post.setpLikes(count+"");
+                               putCountLikes(post);
+                               adapterPost.notifyDataSetChanged();
+                           }else if (post.getuIdLikes() == null || !post.getuIdLikes().equals(uid)){
+                               int count  = Integer.parseInt(post.getpLikes()) + 1 ;
+                               post.setuIdLikes(uid);
+                               post.setpLikes(count+"");
+                               putCountLike(post);
+                               adapterPost.notifyDataSetChanged();
+                           }
                         }
                     });
                     Log.d("Toan",modelPost.toString());
@@ -111,63 +112,55 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private  void putCountLike(ModelPost post){
-        if(post.getpImage() != null && !post.getpImage().equals("noImage")){
-            HashMap<Object,String> hashMap = new HashMap<>();
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            assert user != null;
-            String uid = user.getUid();
-            hashMap.put("uid",post.getUid());
-            hashMap.put("uName",post.getuName());
-            hashMap.put("uEmail",post.getuEmail());
-            hashMap.put("uDp",post.getuDp());
-            hashMap.put("pId",post.getpTime());
-            hashMap.put("pTitle",post.getpTitle());
-            hashMap.put("pDescription", post.getpDescription());
-            hashMap.put("pImage",post.getpImage());
-            hashMap.put("pTime", post.getpTime());
-            hashMap.put("pLikes",post.getpLikes());
-            hashMap.put("pComments","0");
-            hashMap.put("uIdLikes",uid);
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
-            ref.child(post.getpTime()).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getContext(),""+ e.getMessage(),Toast.LENGTH_SHORT).show();
-                }
-            });
-        }else {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            assert user != null;
-            String uid = user.getUid();
-            HashMap<Object, String> hashMap =  new HashMap<>();
-            hashMap.put("uid",post.getUid());
-            hashMap.put("uName",post.getuName());
-            hashMap.put("uEmail",post.getuEmail());
-            hashMap.put("uDp",post.getuDp());
-            hashMap.put("pId",post.getpTime());
-            hashMap.put("pTitle",post.getpTitle());
-            hashMap.put("pDescription", post.getpDescription());
-            hashMap.put("pImage","noImage");
-            hashMap.put("pTime", post.getpTime());
-            hashMap.put("pLikes",post.getpLikes());
-            hashMap.put("pComments","0");
-            hashMap.put("uIdLikes",uid);
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
-            ref.child(post.getpTime()).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                }
-            });
-        }
+    private  void putCountLike(ModelPost post) {
+        String myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
+        ref.child(post.getpTime()).child("" + post.getpLikes()).setValue(post.getpLikes()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        ref.child(post.getpTime()).child("uIdLikes").setValue(myUid).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private  void putCountLikes(ModelPost post) {
+        String myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
+        ref.child(post.getpTime()).child("pLikes").setValue(post.getpLikes()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        ref.child(post.getpTime()).child("uIdLikes").setValue("").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     private void searchPosts(String searchQuery){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");

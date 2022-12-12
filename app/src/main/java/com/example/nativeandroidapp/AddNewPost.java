@@ -549,8 +549,7 @@ public class AddNewPost extends AppCompatActivity {
             case CAMERA_REQUEST:{
                 if(grantResults.length>0){
                     boolean cameraAccept = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    boolean storageAccept = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    if (cameraAccept && storageAccept){
+                    if (cameraAccept){
                         PickFromCamera();
                     }else {
 
