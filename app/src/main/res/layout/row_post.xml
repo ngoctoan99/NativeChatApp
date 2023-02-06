@@ -47,7 +47,7 @@
                 ></TextView>
         </LinearLayout>
         <ImageButton
-            android:id="@+id/moreBtn"
+            android:id="@+id/moreBtns"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -92,18 +92,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        >
+        android:gravity="center">
         <Button
             android:id="@+id/likebtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAllCaps="false"
+            android:textSize="13dp"
             android:backgroundTint="#00000000"
             android:textColor="@color/black"
             android:background="?android:selectableItemBackground"
-            android:drawableLeft="@drawable/ic_baseline_thumb_up_24"
+            android:drawableLeft="@drawable/ic_like_black"
             android:text="Like"></Button>
         <Button
             android:id="@+id/commentbtn"
@@ -111,6 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAllCaps="false"
+            android:textSize="13dp"
             android:background="?android:selectableItemBackground"
             android:backgroundTint="#00000000"
             android:textColor="@color/black"
@@ -122,6 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="13dp"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:backgroundTint="#00000000"

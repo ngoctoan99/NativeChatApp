@@ -31,12 +31,14 @@
                 android:background="@color/white"
                 android:minHeight="200dp"
                 ></ImageView>
+
             <TextView
+                android:id="@+id/textImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#8B000000"
                 android:layout_centerInParent="true"
-                android:text="Click here to add image"></TextView>
+                android:text="Click here to add image"
+                android:textColor="#8B000000" />
         </RelativeLayout>
     <EditText
         android:id="@+id/pDescription"

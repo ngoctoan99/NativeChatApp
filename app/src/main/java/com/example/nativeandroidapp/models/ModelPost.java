@@ -1,12 +1,10 @@
 package com.example.nativeandroidapp.models;
 
 public class ModelPost {
-    String pId, pTitle, pDescription, pImage,pTime, uid, uEmail, uDp, uName , pLikes
-                , pComments , uIdLikes;
-    boolean isEnable = false;
+    String pId, pTitle, pDescription, pImage,pTime, uid, uEmail, uDp, uName , pLikes;
     public ModelPost(){}
 
-    public ModelPost(String pId, String pTitle, String pDescription, String pImage, String pTime, String uid, String uEmail, String uDp, String uName, String pLikes, String pComments, String uIdLikes, boolean isEnable) {
+    public ModelPost(String pId, String pTitle, String pDescription, String pImage, String pTime, String uid, String uEmail, String uDp, String uName, String pLikes) {
         this.pId = pId;
         this.pTitle = pTitle;
         this.pDescription = pDescription;
@@ -17,29 +15,6 @@ public class ModelPost {
         this.uDp = uDp;
         this.uName = uName;
         this.pLikes = pLikes;
-        this.pComments = pComments;
-        this.uIdLikes = uIdLikes;
-        this.isEnable = isEnable;
-    }
-
-
-    @Override
-    public String toString() {
-        return "ModelPost{" +
-                "pId='" + pId + '\'' +
-                ", pTitle='" + pTitle + '\'' +
-                ", pDescription='" + pDescription + '\'' +
-                ", pImage='" + pImage + '\'' +
-                ", pTime='" + pTime + '\'' +
-                ", uid='" + uid + '\'' +
-                ", uEmail='" + uEmail + '\'' +
-                ", uDp='" + uDp + '\'' +
-                ", uName='" + uName + '\'' +
-                ", pLikes='" + pLikes + '\'' +
-                ", pComments='" + pComments + '\'' +
-                ", uIdLikes='" + uIdLikes + '\'' +
-                ", isEnable=" + isEnable +
-                '}';
     }
 
     public String getpId() {
@@ -122,27 +97,4 @@ public class ModelPost {
         this.pLikes = pLikes;
     }
 
-    public String getpComments() {
-        return pComments;
-    }
-
-    public void setpComments(String pComments) {
-        this.pComments = pComments;
-    }
-
-    public String getuIdLikes() {
-        return uIdLikes;
-    }
-
-    public void setuIdLikes(String uIdLikes) {
-        this.uIdLikes = uIdLikes;
-    }
-
-    public boolean isEnable() {
-        return isEnable;
-    }
-
-    public void setEnable(boolean enable) {
-        isEnable = enable;
-    }
 }

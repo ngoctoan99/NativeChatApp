@@ -79,26 +79,6 @@ public class HomeFragment extends Fragment {
                     ModelPost modelPost = ds.getValue(ModelPost.class);
                     postList.add(modelPost);
                     adapterPost = new AdapterPost(getActivity(), postList);
-                    adapterPost.setClickInterface(new AdapterPost.ClickInterface() {
-                        @Override
-                        public void onSelected(ModelPost post) {
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            assert user != null;
-                            String uid = user.getUid();
-                           if( post.getuIdLikes() != null && post.getuIdLikes().equals(uid)){
-                               int count  = Integer.parseInt(post.getpLikes()) - 1 ;
-                               post.setpLikes(count+"");
-                               putCountLikes(post);
-                               adapterPost.notifyDataSetChanged();
-                           }else if (post.getuIdLikes() == null || !post.getuIdLikes().equals(uid)){
-                               int count  = Integer.parseInt(post.getpLikes()) + 1 ;
-                               post.setuIdLikes(uid);
-                               post.setpLikes(count+"");
-                               putCountLike(post);
-                               adapterPost.notifyDataSetChanged();
-                           }
-                        }
-                    });
                     Log.d("Toan",modelPost.toString());
                     recyclerView.setAdapter(adapterPost);
                     adapterPost.notifyDataSetChanged();

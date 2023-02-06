@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nativeandroidapp.notification.Data;
@@ -55,6 +56,7 @@ public class AddNewPost extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     EditText title , description ;
     ImageView imagePost;
+    TextView textImage ;
     DatabaseReference databaseReference;
     Button btnUpload;
     Uri image_uri = null;
@@ -78,13 +80,12 @@ public class AddNewPost extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
         checkUserStatus();
-
         title = findViewById(R.id.pTitle);
         description = findViewById(R.id.pDescription);
         imagePost = findViewById(R.id.pImage);
         btnUpload = findViewById(R.id.btnUpload);
-
-
+        textImage =  findViewById(R.id.textImage) ;
+        checkImage() ;
         Intent intent = getIntent();
         String isUpdateKey = ""+intent.getStringExtra("key");
         String editPostId = ""+intent.getStringExtra("editPostId");
@@ -145,6 +146,14 @@ public class AddNewPost extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void checkImage() {
+        if(imagePost != null){
+            textImage.setText("");
+        }else {
+            textImage.setText("Click here to add image");
+        }
     }
 
     private void beginUpdate(String titles, String descriptions, String editPostId) {
@@ -577,10 +586,11 @@ public class AddNewPost extends AppCompatActivity {
             if(requestCode == IMAGE_PICK_GALLERY_REQUEST_CODE){
                 image_uri = data.getData();
                 imagePost.setImageURI(image_uri);
+                textImage.setText("");
 
             }else if(requestCode == IMAGE_PICK_CAMERA_REQUEST_CODE){
                 imagePost.setImageURI(image_uri);
-
+                textImage.setText("");
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
