@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".PostDetailActivity">
 <androidx.core.widget.NestedScrollView
+    android:layout_above="@id/commentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -149,10 +150,32 @@
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <ImageView
+               android:layout_width="wrap_content"
+               android:layout_margin="5dp"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_baseline_comment_24"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_margin="5dp"
+               android:layout_height="wrap_content"
+               android:text="Comments"/>
+       </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listComment"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            tools:listitem="@layout/row_comment"
+            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
 
     <RelativeLayout
+        android:id="@+id/commentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">

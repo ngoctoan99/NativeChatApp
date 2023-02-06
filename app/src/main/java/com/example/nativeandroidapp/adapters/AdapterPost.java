@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -25,6 +28,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nativeandroidapp.AddNewPost;
@@ -46,6 +50,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
@@ -78,7 +84,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyHolder holder, @SuppressLint("RecyclerView") int position) {
         String uid = posts.get(position).getUid();
         String uEmail = posts.get(position).getuEmail();
         String uName = posts.get(position).getuName();
@@ -89,6 +95,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
         String pDescr= posts.get(position).getpDescription();
         String pImage= posts.get(position).getpImage();
         String pLikes = posts.get(position).getpLikes();
+        String pComments = posts.get(position).getpComments();
 
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(Long.parseLong(pTime));
@@ -99,6 +106,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
         holder.pTitle.setText(pTitle);
         holder.pDescription.setText(pDescr);
         holder.pLikes.setText(pLikes + " Likes");
+        holder.pComments.setText(pComments + " Comments");
 
         setLikes(holder , pId);
         try{
@@ -173,13 +181,12 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
         holder.sharebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.setType("text/plain");
-                    shareIntent.putExtra(Intent.EXTRA_TEXT,posts.get(position).getUid());
-                    context.startActivity(Intent.createChooser(shareIntent, "Chia sẻ với bạn bè và gia đình!"));
-                } catch (Exception e) {
-                    e.toString();
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) holder.pImage.getDrawable();
+                if(bitmapDrawable == null){
+                    shareTextOnly(pTitle, pDescr);
+                }else {
+                    Bitmap bitmap = bitmapDrawable.getBitmap();
+                    shareImageAndText(pTitle,pDescr,bitmap);
                 }
             }
         });
@@ -222,6 +229,46 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
                 });
             }
         });
+    }
+
+    private void shareImageAndText(String pTitle, String pDescr, Bitmap bitmap) {
+        String shareBody = pTitle + "\n" + pDescr;
+        Uri uri = saveImageToShare(bitmap);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_STREAM,uri);
+        intent.putExtra(Intent.EXTRA_TEXT,shareBody);
+        intent.putExtra(Intent.EXTRA_SUBJECT,"Subject Here");
+        intent.setType("image/png");
+        context.startActivity(Intent.createChooser(intent,"Share Via"));
+    }
+
+    private Uri saveImageToShare(Bitmap bitmap) {
+        File imageFolder = new File(context.getCacheDir(), "images");
+        Uri uri = null ;
+        try{
+            imageFolder.mkdirs();
+            File file = new File(imageFolder,"shared_image.png");
+            FileOutputStream stream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
+            stream.flush();
+            stream.close();
+            uri = FileProvider.getUriForFile(context,"com.example.nativeandroidapp.fileprovider",file);
+
+
+
+        }catch (Exception e){
+            Toast.makeText(context,""+ e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        return uri ;
+    }
+
+    private void shareTextOnly(String pTitle, String pDescr) {
+        String shareBody = pTitle + " \n" + pDescr;
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT,"Subject Here");
+        intent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        context.startActivity(Intent.createChooser(intent , "Share Via"));
     }
 
     private void setLikes(MyHolder holder, final String pId) {
@@ -345,7 +392,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
 
     class MyHolder extends RecyclerView.ViewHolder {
         ImageView uPicture, pImage;
-        TextView uName, pTime , pDescription, pLikes, pTitle ;
+        TextView uName, pTime , pDescription, pLikes, pTitle ,pComments;
         ImageButton moreBtn;
         Button likebtn , commentbtn, sharebtn;
         LinearLayout profileLayout;
@@ -359,6 +406,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
             pTitle = itemView.findViewById(R.id.pTitles);
             pDescription = itemView.findViewById(R.id.pDescriptionpost);
             pLikes = itemView.findViewById(R.id.pLikes);
+            pComments = itemView.findViewById(R.id.pComment);
             moreBtn = itemView.findViewById(R.id.moreBtns);
             likebtn = itemView.findViewById(R.id.likebtn);
             commentbtn = itemView.findViewById(R.id.commentbtn);
