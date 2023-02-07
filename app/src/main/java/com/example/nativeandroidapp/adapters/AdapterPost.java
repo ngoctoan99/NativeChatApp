@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nativeandroidapp.AddNewPost;
 import com.example.nativeandroidapp.PostDetailActivity;
+import com.example.nativeandroidapp.ProfileFragment;
 import com.example.nativeandroidapp.R;
 import com.example.nativeandroidapp.ThereProfileActivity;
 import com.example.nativeandroidapp.models.ModelPost;
@@ -193,9 +194,14 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
         holder.profileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ThereProfileActivity.class);
-                intent.putExtra("uid",uid);
-                context.startActivity(intent);
+                if(context.getClass().toString().equals("class " +ThereProfileActivity.class.getName())){
+
+                }
+                else {
+                    Intent intent = new Intent(context, ThereProfileActivity.class);
+                    intent.putExtra("uid",uid);
+                    context.startActivity(intent);
+                }
             }
         });
 

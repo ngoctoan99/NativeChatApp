@@ -150,6 +150,7 @@
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
@@ -165,8 +166,16 @@
                android:layout_height="wrap_content"
                android:text="Comments"/>
        </LinearLayout>
+        <TextView
+            android:id="@+id/emptyComment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="visible"
+            android:text="Empty Comment"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listComment"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_margin="5dp"
             tools:listitem="@layout/row_comment"
@@ -190,13 +199,16 @@
             android:id="@+id/commentEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:background="@color/white"
-            android:padding="10dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_toStartOf="@+id/sendBtn"
+            android:layout_toEndOf="@id/cAvatarIv"
+            android:background="@drawable/custom_edittext"
             android:hint="Enter comment..."
             android:inputType="textCapSentences"
-            android:layout_toEndOf="@id/cAvatarIv"
-            android:layout_toStartOf="@+id/sendBtn" />
+            android:padding="10dp" />
 
         <ImageButton
             android:id="@+id/sendBtn"

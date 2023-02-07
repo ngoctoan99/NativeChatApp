@@ -83,6 +83,7 @@ public class AddNewPost extends AppCompatActivity {
         title = findViewById(R.id.pTitle);
         description = findViewById(R.id.pDescription);
         imagePost = findViewById(R.id.pImage);
+        imagePost.setImageDrawable(null);
         btnUpload = findViewById(R.id.btnUpload);
         textImage =  findViewById(R.id.textImage) ;
         checkImage() ;
@@ -118,7 +119,7 @@ public class AddNewPost extends AppCompatActivity {
             }
         });
         galleryPermission  = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        cameraPermissions  = new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        cameraPermissions  = new String[]{Manifest.permission.CAMERA,Manifest.permission.CAMERA};
         imagePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +150,7 @@ public class AddNewPost extends AppCompatActivity {
     }
 
     private void checkImage() {
-        if(imagePost != null){
+        if(imagePost.getDrawable() != null){
             textImage.setText("");
         }else {
             textImage.setText("Click here to add image");
@@ -497,7 +498,7 @@ public class AddNewPost extends AppCompatActivity {
         return result && results;
     }
     private void requestCameraPermissions(){
-        ActivityCompat.requestPermissions(this, galleryPermission,CAMERA_REQUEST);
+        ActivityCompat.requestPermissions(this, cameraPermissions,CAMERA_REQUEST);
     }
     @Override
     protected void onStart() {
@@ -558,7 +559,7 @@ public class AddNewPost extends AppCompatActivity {
             case CAMERA_REQUEST:{
                 if(grantResults.length>0){
                     boolean cameraAccept = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    if (cameraAccept){
+                    if (cameraAccept ){
                         PickFromCamera();
                     }else {
 

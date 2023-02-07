@@ -60,7 +60,7 @@ public class PostDetailActivity extends AppCompatActivity {
     boolean mProcessComment = false ;
     boolean mProcessLike = false ;
     ImageView uPicture , pImageIv ;
-    TextView  nameTv, pTimeTv, pTitleTv , pDescriptionTv, pLikesTv , pCommentsTv;
+    TextView  nameTv, pTimeTv, pTitleTv , pDescriptionTv, pLikesTv , pCommentsTv, emptyComment;
     ImageButton moreBtn ;
     Button likeBtn , shareBtn ;
     LinearLayout profileLayout ;
@@ -354,6 +354,8 @@ public class PostDetailActivity extends AppCompatActivity {
         cAvatarIv = findViewById(R.id.cAvatarIv);
 
         listComment = findViewById(R.id.listComment);
+        emptyComment= findViewById(R.id.emptyComment);
+
         
         loadPostInfo();
         checkUserStatus();
@@ -377,6 +379,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     commentList.add(comment);
                     adapterComments = new AdapterComments(getApplicationContext(),commentList);
                     listComment.setAdapter(adapterComments);
+                    checkComment();
                 }
 
             }
@@ -386,6 +389,16 @@ public class PostDetailActivity extends AppCompatActivity {
 
             }
         });
+    }
+    private void checkComment(){
+        if(commentList != null ||commentList.size() > 0){
+            emptyComment.setVisibility(View.GONE);
+            listComment.setVisibility(View.VISIBLE);
+        }
+        else {
+            emptyComment.setVisibility(View.VISIBLE);
+            listComment.setVisibility(View.GONE);
+        }
     }
 
     private void loadUserInfo() {

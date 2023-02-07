@@ -224,6 +224,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()) {
                     ModelChat chat = ds.getValue(ModelChat.class);
+                    assert chat != null;
                     if(chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)) {
                         HashMap<String ,Object> hasSeen = new HashMap<>();
                         hasSeen.put("isSeen",true);
@@ -248,14 +249,16 @@ public class ChatActivity extends AppCompatActivity {
                 chatList.clear();
                 for(DataSnapshot ds : snapshot.getChildren()){
                     ModelChat modelChat = ds.getValue(ModelChat.class);
+                    assert modelChat != null;
                     if(modelChat.getReceiver().equals(myUid) && modelChat.getSender().equals(hisUid) ||
                     modelChat.getReceiver().equals(hisUid) && modelChat.getSender().equals(myUid)){
                         chatList.add(modelChat);
                     }
                     adapterChat = new AdapterChat(ChatActivity.this,chatList,hisimage);
-                    adapterChat.notifyDataSetChanged();
+//                    adapterChat.notifyDataSetChanged();
                     recyclerView.setAdapter(adapterChat);
                 }
+                recyclerView.scrollToPosition(chatList.size() - 1);
             }
 
             @Override
@@ -287,6 +290,7 @@ public class ChatActivity extends AppCompatActivity {
                     sendNotification(hisUid,users.getName(), messages);
                 }
                 notify = false;
+                recyclerView.scrollToPosition(chatList.size() - 1);
             }
 
             @Override
