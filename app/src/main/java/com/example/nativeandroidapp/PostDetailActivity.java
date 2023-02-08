@@ -181,6 +181,7 @@ public class PostDetailActivity extends AppCompatActivity {
                         postRef.child(postId).child("pLikes").setValue(""+(Integer.parseInt(pLikes)+1));
                         likeRef.child(postId).child(myUid).setValue("Liked");
                         mProcessLike = false ;
+                        addToHisNotification(""+hisUid,""+postId,"Like your post");
                     }
                 }
             }
@@ -218,6 +219,8 @@ public class PostDetailActivity extends AppCompatActivity {
                 Toast.makeText(PostDetailActivity.this, "Comment Added ...", Toast.LENGTH_SHORT).show();
                 commentEt.setText("");
                 updateCommentCount();
+
+                addToHisNotification(""+ hisUid, ""+postId,"Comment on your post");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -398,6 +401,31 @@ public class PostDetailActivity extends AppCompatActivity {
         else {
             emptyComment.setVisibility(View.VISIBLE);
             listComment.setVisibility(View.GONE);
+        }
+    }
+    private void  addToHisNotification(String hisUid, String pId,String notification){
+        if(hisUid.equals(myUid)){
+
+        }else {
+            String timeStamp = "" + System.currentTimeMillis();
+            HashMap<Object, String> hashMap = new HashMap<>() ;
+            hashMap.put("pId",pId);
+            hashMap.put("timeStamp",timeStamp);
+            hashMap.put("pUid",hisUid);
+            hashMap.put("notification",notification);
+            hashMap.put("sUid",myUid);
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+            ref.child(hisUid).child("Notification").child(timeStamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
         }
     }
 

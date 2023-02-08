@@ -32,11 +32,13 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nativeandroidapp.AddNewPost;
+import com.example.nativeandroidapp.PickPictureActivity;
 import com.example.nativeandroidapp.PostDetailActivity;
 import com.example.nativeandroidapp.ProfileFragment;
 import com.example.nativeandroidapp.R;
 import com.example.nativeandroidapp.ThereProfileActivity;
 import com.example.nativeandroidapp.models.ModelPost;
+import com.example.nativeandroidapp.notification.Data;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,6 +57,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -65,7 +68,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
     DatabaseReference likesRef  ;
     DatabaseReference postsRef ;
     boolean mProcessLike = false ;
-
+    boolean isImageFitToScreen ;
 //    private ClickInterface clickInterface;
     private int count = 0 ;
     public AdapterPost(Context context, List<ModelPost> posts) {
@@ -128,21 +131,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
                 e.getMessage();
             }
         }
-//        Log.d("toan",posts.get(position).isEnable() + "");
-//        String check = posts.get(position).isEnable()+"";
 
-
-//        if(posts.get(position).getuIdLikes() != null && posts.get(position).getuIdLikes().equals(myUid)){
-//            holder.likebtn.setTextColor(context.getResources().getColor(R.color.blue));
-//            Drawable img = context.getResources().getDrawable(R.drawable.ic_thumb_up_24_blue);
-//            img.setBounds(0, 0, 60, 60);
-//            holder.likebtn.setCompoundDrawables(img, null, null, null);
-//        }else {
-//            holder.likebtn.setTextColor(context.getResources().getColor(R.color.black));
-//            Drawable img = context.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_24);
-//            img.setBounds(0, 0, 60, 60);
-//            holder.likebtn.setCompoundDrawables(img, null, null, null);
-//        }
         holder.moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,27 +139,15 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
                 showMoreOption(holder.moreBtn, uid, myUid, pId,pImage);
             }
         });
-//        holder.likebtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                clickInterface.onSelected(posts.get(position));
-//            }
-//        });
+        holder.pImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context , PickPictureActivity.class);
+                intent.putExtra("pImage",pImage);
+                context.startActivity(intent);
+            }
+        });
 
-//        holder.likebtn.setOnClickListener(new View.OnClickListener() {
-//            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-//            @Override
-//            public void onClick(View view) {
-//                count ++ ;
-//                if(count % 2 != 0){
-//                }else {
-//                    holder.likebtn.setTextColor(context.getResources().getColor(R.color.black));
-//                    Drawable img = context.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_24);
-//                    img.setBounds(0, 0, 60, 60);
-//                    holder.likebtn.setCompoundDrawables(img, null, null, null);
-//                }
-//            }
-//        });
         holder.commentbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,6 +201,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
                                 postsRef.child(postIde).child("pLikes").setValue(""+(pLikes+1));
                                 likesRef.child(postIde).child(myUid).setValue("Liked");
                                 mProcessLike = false ;
+                                addToHisNotification("" + uid, ""+pId,"Like your post");
                             }
                         }
                     }
@@ -275,6 +253,32 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
         intent.putExtra(Intent.EXTRA_SUBJECT,"Subject Here");
         intent.putExtra(Intent.EXTRA_TEXT, shareBody);
         context.startActivity(Intent.createChooser(intent , "Share Via"));
+    }
+
+    private void  addToHisNotification(String hisUid, String pId,String notification){
+        if(hisUid.equals(myUid)){
+
+        }else {
+            String timeStamp = "" + System.currentTimeMillis();
+            HashMap<Object, String> hashMap = new HashMap<>() ;
+            hashMap.put("pId",pId);
+            hashMap.put("timeStamp",timeStamp);
+            hashMap.put("pUid",hisUid);
+            hashMap.put("notification",notification);
+            hashMap.put("sUid",myUid);
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+            ref.child(hisUid).child("Notification").child(timeStamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+        }
     }
 
     private void setLikes(MyHolder holder, final String pId) {

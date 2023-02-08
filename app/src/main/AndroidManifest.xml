@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NativeAndroidApp">
         <activity
+            android:name=".PickPictureActivity"
+            android:exported="false" />
+        <activity
             android:name=".PostDetailActivity"
             android:exported="false" />
         <activity
@@ -57,15 +60,15 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <provider
-            android:authorities="com.example.nativeandroidapp.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.nativeandroidapp.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/paths">
-            </meta-data>
+                android:resource="@xml/paths"></meta-data>
         </provider>
     </application>
 

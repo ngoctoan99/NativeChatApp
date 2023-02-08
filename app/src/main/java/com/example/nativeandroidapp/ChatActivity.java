@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -28,6 +29,7 @@ import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -290,7 +292,7 @@ public class ChatActivity extends AppCompatActivity {
                     sendNotification(hisUid,users.getName(), messages);
                 }
                 notify = false;
-                recyclerView.scrollToPosition(chatList.size() - 1);
+                hideKeyboard(ChatActivity.this);
             }
 
             @Override
@@ -326,6 +328,16 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+        recyclerView.scrollToPosition(chatList.size() - 1);
+    }
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
     private void sendImageMessage(Uri image_uri) throws IOException {
 

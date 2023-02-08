@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nativeandroidapp.fragment.NotificationFragment;
 import com.example.nativeandroidapp.notification.Token;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -86,6 +87,13 @@ public class DashboardActivity extends AppCompatActivity {
                             FragmentTransaction ft4 = getSupportFragmentManager().beginTransaction();
                             ft4.replace(R.id.content1,fragment4,"");
                             ft4.commit();
+                            return true;
+                        case R.id.notify_post:
+                            actionBar.setTitle("Notification");
+                            NotificationFragment fragment5 = new NotificationFragment();
+                            FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
+                            ft5.replace(R.id.content1,fragment5,"");
+                            ft5.commit();
                             return true;
                     }
                     return false;

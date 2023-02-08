@@ -1,8 +1,10 @@
 package com.example.nativeandroidapp.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nativeandroidapp.PickPictureActivity;
 import com.example.nativeandroidapp.models.ModelChat;
 import com.example.nativeandroidapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,7 +62,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull MyHolder holder, @SuppressLint("RecyclerView") final int position) {
         String message = chatList.get(position).getMessage();
         String timestamp = chatList.get(position).getTimestamp();
         String type = chatList.get(position).getType();
@@ -85,6 +88,18 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         holder.messageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(chatList.get(position).getType().equals("image")){
+                    Intent intent = new Intent(context , PickPictureActivity.class);
+                    intent.putExtra("pImage",message);
+                    context.startActivity(intent);
+                }else {
+                    Toast.makeText(context, "Hold long to delete message", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        holder.messageLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Delete");
                 builder.setMessage("Are you sure to delete this message ?");
@@ -101,6 +116,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
                     }
                 });
                 builder.create().show();
+                return false;
             }
         });
         if(position == chatList.size()-1){

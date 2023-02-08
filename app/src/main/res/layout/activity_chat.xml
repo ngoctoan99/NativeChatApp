@@ -62,39 +62,42 @@
         android:layout_above="@id/chat_layout"
         android:layout_below="@+id/toolbarsds"
         android:transcriptMode="alwaysScroll" />
+
     <LinearLayout
         android:id="@+id/chat_layout"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
         android:layout_marginBottom="5dp"
+        android:gravity="center"
         android:orientation="horizontal">
+
         <ImageButton
             android:id="@+id/attachButton"
             android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="5dp"
             android:background="@drawable/custom_background"
-            android:src="@drawable/ic_baseline_attach_file_24"
-            android:layout_height="40dp"></ImageButton>
+            android:src="@drawable/ic_baseline_attach_file_24"></ImageButton>
+
         <EditText
             android:id="@+id/chatmessage"
-            android:layout_weight="1"
-            android:hint="Start"
-            android:padding="10dp"
-            android:textSize="15dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/custom_edittext"
-            android:inputType="textCapSentences|textMultiLine"
             android:layout_width="0dp"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_edittext"
+            android:hint="Start"
+            android:inputType="textCapSentences|textMultiLine"
+            android:padding="10dp"
+            android:textSize="15dp" />
+
         <ImageButton
             android:id="@+id/sendbtn"
-            android:layout_height="30dp"
             android:layout_width="30dp"
-            android:src="@drawable/ic_send"
+            android:layout_height="30dp"
             android:background="@null"
-            />
+            android:src="@drawable/ic_send" />
     </LinearLayout>
 
 </RelativeLayout>
