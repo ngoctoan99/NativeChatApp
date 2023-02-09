@@ -1,4 +1,4 @@
-package com.example.nativeandroidapp;
+package com.example.nativeandroidapp.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +19,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +29,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nativeandroidapp.notification.Data;
+import com.example.nativeandroidapp.MainActivity;
+import com.example.nativeandroidapp.R;
+import com.example.nativeandroidapp.ultil.PreferencesUtils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -49,7 +50,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
-import java.util.PrimitiveIterator;
 
 public class AddNewPost extends AppCompatActivity {
     ActionBar actionBar;
@@ -547,7 +547,7 @@ public class AddNewPost extends AppCompatActivity {
             uid = user.getUid();
         }
         else {
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         }
     }

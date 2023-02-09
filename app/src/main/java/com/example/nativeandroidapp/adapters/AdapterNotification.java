@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.blogspot.atifsoftwares.circularimageview.CircularImageView;
-import com.example.nativeandroidapp.PostDetailActivity;
+import com.example.nativeandroidapp.activity.PostDetailActivity;
 import com.example.nativeandroidapp.R;
 import com.example.nativeandroidapp.models.ModelNotification;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,7 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;

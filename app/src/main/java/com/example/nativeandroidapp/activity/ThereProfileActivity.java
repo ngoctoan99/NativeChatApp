@@ -1,4 +1,4 @@
-package com.example.nativeandroidapp;
+package com.example.nativeandroidapp.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -11,15 +11,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nativeandroidapp.MainActivity;
+import com.example.nativeandroidapp.R;
 import com.example.nativeandroidapp.adapters.AdapterPost;
 import com.example.nativeandroidapp.models.ModelPost;
+import com.example.nativeandroidapp.ultil.PreferencesUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -156,6 +158,7 @@ public class ThereProfileActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         menu.findItem(R.id.action_add_newpost).setVisible(false);
+        menu.findItem(R.id.action_create_group).setVisible(false);
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -200,7 +203,7 @@ public class ThereProfileActivity extends AppCompatActivity {
         if(user != null) {
         }
         else {
-            startActivity(new Intent(ThereProfileActivity.this,MainActivity.class));
+            startActivity(new Intent(ThereProfileActivity.this, MainActivity.class));
             finish();
         }
     }

@@ -1,4 +1,4 @@
-package com.example.nativeandroidapp;
+package com.example.nativeandroidapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
+import com.example.nativeandroidapp.activity.AddNewPost;
+import com.example.nativeandroidapp.MainActivity;
+import com.example.nativeandroidapp.activity.GroupCreateActivity;
+import com.example.nativeandroidapp.ultil.PreferencesUtils;
+import com.example.nativeandroidapp.R;
 import com.example.nativeandroidapp.adapters.AdapterUsers;
 import com.example.nativeandroidapp.models.ModelUsers;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,31 +43,14 @@ public class UsersFragment extends Fragment {
     List<ModelUsers> usersList;
     FirebaseAuth firebaseAuth;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
 
     public UsersFragment() {
-        // Required empty public constructor
     }
-    public static UsersFragment newInstance(String param1, String param2) {
-        UsersFragment fragment = new UsersFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -135,7 +123,7 @@ public class UsersFragment extends Fragment {
             //tvporfile.setText(user.getEmail());
         }
         else {
-            startActivity(new Intent(getActivity(),MainActivity.class));
+            startActivity(new Intent(getActivity(), MainActivity.class));
             getActivity().finish();
         }
     }
@@ -187,8 +175,11 @@ public class UsersFragment extends Fragment {
             firebaseAuth.signOut();
             checkUserStatus();
         }
-        if(id == R.id.action_add_newpost) {
+        else if(id == R.id.action_add_newpost) {
             startActivity(new Intent(getActivity(), AddNewPost.class));
+        }
+        else if(id == R.id.action_create_group) {
+            startActivity(new Intent(getActivity(), GroupCreateActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

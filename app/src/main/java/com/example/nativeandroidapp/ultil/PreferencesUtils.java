@@ -1,4 +1,4 @@
-package com.example.nativeandroidapp;
+package com.example.nativeandroidapp.ultil;
 
 import android.content.Context;
 import android.content.SharedPreferences;

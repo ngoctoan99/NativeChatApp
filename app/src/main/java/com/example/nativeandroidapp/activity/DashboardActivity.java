@@ -1,4 +1,4 @@
-package com.example.nativeandroidapp;
+package com.example.nativeandroidapp.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -8,13 +8,19 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.PopupMenu;
 
+import com.example.nativeandroidapp.MainActivity;
+import com.example.nativeandroidapp.R;
+import com.example.nativeandroidapp.fragment.ChatListFragment;
+import com.example.nativeandroidapp.fragment.GroupChatsFragment;
+import com.example.nativeandroidapp.fragment.HomeFragment;
 import com.example.nativeandroidapp.fragment.NotificationFragment;
+import com.example.nativeandroidapp.fragment.ProfileFragment;
+import com.example.nativeandroidapp.fragment.UsersFragment;
 import com.example.nativeandroidapp.notification.Token;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +33,7 @@ public class DashboardActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ActionBar actionBar;
     String mUID;
+    BottomNavigationView navigationView ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +41,7 @@ public class DashboardActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setTitle("Profile");
         firebaseAuth = FirebaseAuth.getInstance();
-        BottomNavigationView navigationView = findViewById(R.id.navigation);
+        navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
         actionBar.setTitle("Home");
         HomeFragment fragment1 = new HomeFragment();
@@ -88,17 +95,44 @@ public class DashboardActivity extends AppCompatActivity {
                             ft4.replace(R.id.content1,fragment4,"");
                             ft4.commit();
                             return true;
-                        case R.id.notify_post:
-                            actionBar.setTitle("Notification");
-                            NotificationFragment fragment5 = new NotificationFragment();
-                            FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
-                            ft5.replace(R.id.content1,fragment5,"");
-                            ft5.commit();
+                        case R.id.nav_more:
+                            showMoreOption();
                             return true;
                     }
                     return false;
                 }
             };
+
+    private void showMoreOption() {
+        PopupMenu popupMenu = new PopupMenu(this, navigationView , Gravity.END);
+        popupMenu.getMenu().add(Menu.NONE,0,0,"Notification");
+        popupMenu.getMenu().add(Menu.NONE,1,0,"Group Chats");
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                if(id == 0){
+                    actionBar.setTitle("Notification");
+                    NotificationFragment fragment5 = new NotificationFragment();
+                    FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
+                    ft5.replace(R.id.content1,fragment5,"");
+                    ft5.commit();
+                }
+                else if (id == 1) {
+                    actionBar.setTitle("Group Chats");
+                    GroupChatsFragment fragment6 = new GroupChatsFragment();
+                    FragmentTransaction ft6 = getSupportFragmentManager().beginTransaction();
+                    ft6.replace(R.id.content1,fragment6,"");
+                    ft6.commit();
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
+
+    }
+
     private void checkUserStatus() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if(user != null) {
@@ -110,7 +144,7 @@ public class DashboardActivity extends AppCompatActivity {
             updateToken(FirebaseInstanceId.getInstance().getToken());
         }
         else {
-            startActivity(new Intent(DashboardActivity.this,MainActivity.class));
+            startActivity(new Intent(DashboardActivity.this, MainActivity.class));
             finish();
         }
     }

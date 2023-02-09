@@ -1,7 +1,6 @@
-package com.example.nativeandroidapp;
+package com.example.nativeandroidapp.fragment;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,11 +18,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.nativeandroidapp.activity.AddNewPost;
+import com.example.nativeandroidapp.MainActivity;
+import com.example.nativeandroidapp.ultil.PreferencesUtils;
+import com.example.nativeandroidapp.R;
 import com.example.nativeandroidapp.adapters.AdapterPost;
 import com.example.nativeandroidapp.models.ModelPost;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,11 +36,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -172,7 +170,7 @@ public class HomeFragment extends Fragment {
             //tvporfile.setText(user.getEmail());
         }
         else {
-            startActivity(new Intent(getActivity(),MainActivity.class));
+            startActivity(new Intent(getActivity(), MainActivity.class));
             getActivity().finish();
         }
     }
@@ -186,6 +184,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main,menu);
+        menu.findItem(R.id.action_create_group).setVisible(false);
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

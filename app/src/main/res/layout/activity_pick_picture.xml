@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical"
-    tools:context=".PickPictureActivity">
+    tools:context=".activity.PickPictureActivity">
     <ImageView
         android:id="@+id/goback"
         android:layout_width="25dp"

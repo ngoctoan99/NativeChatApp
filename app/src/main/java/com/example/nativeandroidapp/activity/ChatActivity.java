@@ -1,4 +1,4 @@
-package com.example.nativeandroidapp;
+package com.example.nativeandroidapp.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -36,6 +35,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nativeandroidapp.MainActivity;
+import com.example.nativeandroidapp.ultil.PreferencesUtils;
+import com.example.nativeandroidapp.R;
 import com.example.nativeandroidapp.adapters.AdapterChat;
 import com.example.nativeandroidapp.models.ModelChat;
 import com.example.nativeandroidapp.models.ModelUsers;
@@ -481,7 +483,7 @@ public class ChatActivity extends AppCompatActivity {
             myUid = user.getUid();
         }
         else {
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         }
     }
@@ -572,6 +574,7 @@ public class ChatActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.action_add_newpost).setVisible(false);
+        menu.findItem(R.id.action_create_group).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 

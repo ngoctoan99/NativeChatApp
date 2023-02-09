@@ -17,7 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nativeandroidapp.PickPictureActivity;
+import com.example.nativeandroidapp.activity.PickPictureActivity;
 import com.example.nativeandroidapp.models.ModelChat;
 import com.example.nativeandroidapp.R;
 import com.google.firebase.auth.FirebaseAuth;

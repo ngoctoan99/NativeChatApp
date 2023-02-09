@@ -1,4 +1,4 @@
-package com.example.nativeandroidapp;
+package com.example.nativeandroidapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nativeandroidapp.activity.AddNewPost;
+import com.example.nativeandroidapp.MainActivity;
+import com.example.nativeandroidapp.activity.GroupCreateActivity;
+import com.example.nativeandroidapp.ultil.PreferencesUtils;
+import com.example.nativeandroidapp.R;
 import com.example.nativeandroidapp.adapters.AdapterChatlist;
 import com.example.nativeandroidapp.models.ModelChat;
 import com.example.nativeandroidapp.models.ModelChatlist;
@@ -150,8 +155,12 @@ public class ChatListFragment extends Fragment {
             firebaseAuth.signOut();
             checkUserStatus();
         }
-        if(id == R.id.action_add_newpost) {
+        else if(id == R.id.action_add_newpost) {
             startActivity(new Intent(getActivity(), AddNewPost.class));
+        }
+
+        else if(id == R.id.action_create_group) {
+            startActivity(new Intent(getActivity(), GroupCreateActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -161,7 +170,7 @@ public class ChatListFragment extends Fragment {
             //tvporfile.setText(user.getEmail());
         }
         else {
-            startActivity(new Intent(getActivity(),MainActivity.class));
+            startActivity(new Intent(getActivity(), MainActivity.class));
             getActivity().finish();
         }
     }

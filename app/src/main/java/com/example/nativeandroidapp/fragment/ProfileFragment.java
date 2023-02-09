@@ -1,4 +1,4 @@
-package com.example.nativeandroidapp;
+package com.example.nativeandroidapp.fragment;
 
 import android.Manifest;
 import android.app.Activity;
@@ -13,7 +13,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
@@ -35,6 +34,11 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nativeandroidapp.activity.AddNewPost;
+import com.example.nativeandroidapp.MainActivity;
+import com.example.nativeandroidapp.activity.GroupCreateActivity;
+import com.example.nativeandroidapp.ultil.PreferencesUtils;
+import com.example.nativeandroidapp.R;
 import com.example.nativeandroidapp.adapters.AdapterPost;
 import com.example.nativeandroidapp.models.ModelPost;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -51,14 +55,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTaskScheduler;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.TooManyListenersException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -577,7 +579,7 @@ public class ProfileFragment extends Fragment {
             uid = user.getUid();
         }
         else {
-            startActivity(new Intent(getActivity(),MainActivity.class));
+            startActivity(new Intent(getActivity(), MainActivity.class));
             getActivity().finish();
         }
     }
@@ -591,6 +593,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main,menu);
+        menu.findItem(R.id.action_create_group).setVisible(false);
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -625,8 +628,11 @@ public class ProfileFragment extends Fragment {
             firebaseAuth.signOut();
             checkUserStatus();
         }
-        if(id == R.id.action_add_newpost) {
+        else if(id == R.id.action_add_newpost) {
             startActivity(new Intent(getActivity(), AddNewPost.class));
+        }
+        else if(id == R.id.action_create_group) {
+            startActivity(new Intent(getActivity(), GroupCreateActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

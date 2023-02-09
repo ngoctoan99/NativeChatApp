@@ -19,23 +19,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NativeAndroidApp">
         <activity
-            android:name=".PickPictureActivity"
+            android:name=".GroupChatActivity"
             android:exported="false" />
         <activity
-            android:name=".PostDetailActivity"
+            android:name=".activity.PickPictureActivity"
             android:exported="false" />
         <activity
-            android:name=".ThereProfileActivity"
+            android:name=".activity.PostDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".AddNewPost"
+            android:name=".activity.ThereProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ChatActivity"
+            android:name=".activity.AddNewPost"
+            android:exported="false" />
+        <activity
+            android:name=".activity.GroupCreateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChatActivity"
             android:theme="@style/Theme.NoNativeAndroidApp" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".DashboardActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.DashboardActivity" />
+        <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,7 +74,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/paths"></meta-data>
+                android:resource="@xml/paths" />
         </provider>
     </application>
 

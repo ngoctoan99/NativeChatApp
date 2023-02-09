@@ -11,9 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nativeandroidapp.ChatActivity;
+import com.example.nativeandroidapp.activity.ChatActivity;
 import com.example.nativeandroidapp.R;
-import com.example.nativeandroidapp.models.ModelChatlist;
 import com.example.nativeandroidapp.models.ModelUsers;
 import com.squareup.picasso.Picasso;
 

@@ -4,71 +4,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#D2D7D8"
     android:layout_height="match_parent"
-    tools:context=".activity.ChatActivity">
-
+    android:background="#D2D7D8"
+    tools:context=".activity.GroupChatActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarsds"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/purple_500">
+        android:background="@color/purple_500"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        >
 
-        <ImageView
-            android:id="@+id/btn_back_chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_back"></ImageView>
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <com.blogspot.atifsoftwares.circularimageview.CircularImageView
-            android:id="@+id/profiless"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_face_default" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/groupIconIv"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_baseline_groups_24"/>
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/yournametv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Your Name"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/userStatusTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="online"
-                android:textColor="@color/white"
-                android:textSize="12dp"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:layout_toEndOf="@+id/groupIconIv"
+            android:text="Group Title"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+    </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/chat_layout"
-        android:layout_below="@+id/toolbarsds"
-        android:transcriptMode="alwaysScroll" />
-
     <LinearLayout
         android:id="@+id/chat_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -81,7 +54,7 @@
             android:src="@drawable/ic_baseline_attach_file_24"></ImageButton>
 
         <EditText
-            android:id="@+id/chatmessage"
+            android:id="@+id/messageEt"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
@@ -99,5 +72,4 @@
             android:background="@null"
             android:src="@drawable/ic_send" />
     </LinearLayout>
-
 </RelativeLayout>

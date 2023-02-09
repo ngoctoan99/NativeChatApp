@@ -1,4 +1,4 @@
-package com.example.nativeandroidapp;
+package com.example.nativeandroidapp.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -28,9 +28,11 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nativeandroidapp.MainActivity;
+import com.example.nativeandroidapp.R;
 import com.example.nativeandroidapp.adapters.AdapterComments;
-import com.example.nativeandroidapp.adapters.AdapterPost;
 import com.example.nativeandroidapp.models.ModelComment;
+import com.example.nativeandroidapp.ultil.PreferencesUtils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
