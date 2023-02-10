@@ -17,11 +17,13 @@
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/ic_baseline_thumb_up_24.xml" value="0.3635" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/ic_like.xml" value="0.3055" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/ic_thumb_up_24_blue.xml" value="0.3625" />
+        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/row_group_participant.xml" value="0.1" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_add_new_post.xml" value="0.3625" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_chat.xml" value="0.18258426966292135" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_dashboard.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_group_chat.xml" value="0.2" />
+        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_group_chat.xml" value="0.33" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_group_create.xml" value="0.1822429906542056" />
+        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_group_participant.xml" value="0.1" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_login.xml" value="0.3625" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_main.xml" value="0.3625" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_pick_picture.xml" value="0.18" />
@@ -37,6 +39,9 @@
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_chat_right.xml" value="0.18" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_chatlist.xml" value="0.3625" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_comment.xml" value="0.33" />
+        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_group_participant.xml" value="0.1" />
+        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_groupchat_left.xml" value="0.22" />
+        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_groupchat_right.xml" value="0.1" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_groupchats_list.xml" value="0.1" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_notification.xml" value="0.2212962962962963" />
         <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_post.xml" value="0.1646039603960396" />

@@ -2,6 +2,7 @@ package com.example.nativeandroidapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nativeandroidapp.R;
 import com.example.nativeandroidapp.activity.GroupChatActivity;
 import com.example.nativeandroidapp.models.ModelGroupChatsList;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatList.MyHolder>{
     private Context context ;
@@ -41,6 +49,10 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
         String icon = model.getGroupIcon() ;
         String groupTitle = model.getGroupTitle();
 
+        holder.nameTv.setText("");
+        holder.timeTv.setText("");
+        holder.messageTv.setText("");
+        loadlastMessage(model , holder);
         holder.groupTitleTv.setText(groupTitle);
 
         try{
@@ -55,6 +67,52 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
                 Intent intent = new Intent(context, GroupChatActivity.class);
                 intent.putExtra("groupId",groupId);
                 context.startActivity(intent);
+            }
+        });
+    }
+
+    private void loadlastMessage(ModelGroupChatsList model, MyHolder holder) {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Group");
+        ref.child(model.getGroupID()).child("Message").limitToLast(1).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){
+
+                    String message = "" + ds.child("message").getValue();
+                    String timestamp = "" + ds.child("timestamp").getValue();
+                    String sender = "" + ds.child("sender").getValue();
+
+                    Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                    cal.setTimeInMillis(Long.parseLong(timestamp));
+                    String dateTime = DateFormat.format("dd/MM/yyyy hh:mm:aa",cal).toString();
+
+                    holder.messageTv.setText(message);
+                    holder.timeTv.setText(dateTime);
+
+                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Users");
+                    ref1.orderByChild("uid").equalTo(sender).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot ds : snapshot.getChildren()){
+                                String name = ""+ds.child("name").getValue();
+                                holder.nameTv.setText(name+": ");
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

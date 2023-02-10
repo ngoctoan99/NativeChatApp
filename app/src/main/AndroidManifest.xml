@@ -19,8 +19,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NativeAndroidApp">
         <activity
-            android:name=".GroupChatActivity"
+            android:name=".activity.GroupParticipantActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity.GroupChatActivity"
+            android:theme="@style/Theme.NoNativeAndroidApp" />
         <activity
             android:name=".activity.PickPictureActivity"
             android:exported="false" />

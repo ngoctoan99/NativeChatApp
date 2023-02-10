@@ -8,12 +8,17 @@
     android:background="#D2D7D8"
     tools:context=".activity.GroupChatActivity">
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/purple_500"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
-
+        <ImageView
+            android:id="@+id/btn_back_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"></ImageView>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -29,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/groupIconIv"
             android:text="Group Title"
+            android:id="@+id/groupTitle"
             android:layout_marginStart="10dp"
             android:layout_centerVertical="true"
             android:textColor="@color/white"
@@ -36,6 +42,15 @@
             android:textSize="18sp"/>
     </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_groupchat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/chat_layout"
+        android:layout_below="@+id/toolbar"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:stackFromEnd="true"
+        tools:listitem="@layout/row_groupchat_left" />
     <LinearLayout
         android:id="@+id/chat_layout"
         android:layout_width="match_parent"
