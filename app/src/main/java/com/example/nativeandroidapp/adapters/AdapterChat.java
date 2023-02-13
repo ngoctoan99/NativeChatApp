@@ -142,9 +142,6 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
                 for(DataSnapshot ds : snapshot.getChildren()){
                     if(ds.child("sender").getValue().equals(myUid)){
                         ds.getRef().removeValue();
-//                        HashMap<String, Object> hashMap = new HashMap<>();
-//                        hashMap.put("message","This message was deleted...");
-//                        ds.getRef().updateChildren(hashMap);
                     }else {
                         Toast.makeText(context,"You can delete only your messages...",Toast.LENGTH_SHORT).show();
                     }

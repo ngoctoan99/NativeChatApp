@@ -42,14 +42,15 @@
             android:textSize="18sp"/>
     </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_groupchat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/chat_layout"
         android:layout_below="@+id/toolbar"
+        android:transcriptMode="alwaysScroll"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:stackFromEnd="true"
         tools:listitem="@layout/row_groupchat_left" />
     <LinearLayout
         android:id="@+id/chat_layout"

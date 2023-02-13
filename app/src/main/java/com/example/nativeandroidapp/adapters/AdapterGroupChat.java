@@ -1,27 +1,38 @@
 package com.example.nativeandroidapp.adapters;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nativeandroidapp.R;
+import com.example.nativeandroidapp.activity.PickPictureActivity;
 import com.example.nativeandroidapp.models.ModelGroupChat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.MyHolder>{
 
@@ -50,19 +61,43 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.MyHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterGroupChat.MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterGroupChat.MyHolder holder, @SuppressLint("RecyclerView") int position) {
         ModelGroupChat model = chatArrayList.get(position);
         String message = model.getMessage();
         String senderUid = model.getSender();
         String timeStamp = model.getTimestamp();
-
+        String type = model.getType();
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(Long.parseLong(timeStamp));
         String dateTime = DateFormat.format("dd/MM/yyyy hh:mm:aa",cal).toString();
 
-        holder.messageTv.setText(message);
+
+        if(type.equals("text")){
+            holder.messageTv.setVisibility(View.VISIBLE);
+            holder.messageIv.setVisibility(View.GONE);
+            holder.messageTv.setText(message);
+        }else {
+            holder.messageTv.setVisibility(View.GONE);
+            holder.messageIv.setVisibility(View.VISIBLE);
+            try{
+                Picasso.get().load(message).placeholder(R.drawable.ic_baseline_image_24).into(holder.messageIv);
+            }catch(Exception e) {
+                holder.messageIv.setImageResource(R.drawable.ic_baseline_image_24);
+            }
+        }
         holder.timeTv.setText(dateTime);
         setUserName(model, holder);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(chatArrayList.get(position).getType().equals("image")){
+                    Intent intent = new Intent(context , PickPictureActivity.class);
+                    intent.putExtra("pImage",message);
+                    context.startActivity(intent);
+                }
+            }
+        });
     }
 
     private void setUserName(ModelGroupChat model, MyHolder holder) {
@@ -82,7 +117,6 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.MyHo
             }
         });
     }
-
     @Override
     public int getItemViewType(int position) {
         if(chatArrayList.get(position).getSender().equals(firebaseAuth.getUid())){
@@ -99,11 +133,13 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.MyHo
 
     class MyHolder extends RecyclerView.ViewHolder{
         private TextView nameTv, messageTv, timeTv ;
+        private ImageView messageIv ;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             nameTv = itemView.findViewById(R.id.nameTv);
             messageTv = itemView.findViewById(R.id.messageTv);
             timeTv = itemView.findViewById(R.id.timeTv);
+            messageIv = itemView.findViewById(R.id.messageIv);
         }
     }
 }

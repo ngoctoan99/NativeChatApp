@@ -523,8 +523,8 @@ public class ChatActivity extends AppCompatActivity {
 
     private void PickFromCamera() {
         ContentValues values = new ContentValues();
-        values.put(MediaStore.Images.Media.TITLE, "Temp Pic");
-        values.put(MediaStore.Images.Media.DESCRIPTION,"Temp Description");
+        values.put(MediaStore.Images.Media.TITLE, "GroupImageTitle");
+        values.put(MediaStore.Images.Media.DESCRIPTION,"GroupImage Description");
         image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
