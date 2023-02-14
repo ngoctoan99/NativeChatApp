@@ -19,6 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NativeAndroidApp">
         <activity
+            android:name=".activity.GroupEditActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".activity.GroupInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.GroupParticipantActivity"
             android:exported="false" />
         <activity

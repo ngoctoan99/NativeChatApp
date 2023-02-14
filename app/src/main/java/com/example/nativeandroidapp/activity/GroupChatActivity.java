@@ -262,6 +262,11 @@ public class GroupChatActivity extends AppCompatActivity {
             intent.putExtra("groupId", groupId);
             startActivity(intent);
         }
+        if (id == R.id.action_information_group) {
+            Intent intent = new Intent(this, GroupInfoActivity.class);
+            intent.putExtra("groupId", groupId);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
     @Override

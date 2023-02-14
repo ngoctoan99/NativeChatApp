@@ -139,6 +139,7 @@ public class UsersFragment extends Fragment {
         inflater.inflate(R.menu.menu_main,menu);
         menu.findItem(R.id.action_add_newpost).setVisible(false);
         menu.findItem(R.id.action_add_participant).setVisible(false);
+        menu.findItem(R.id.action_information_group).setVisible(false);
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
