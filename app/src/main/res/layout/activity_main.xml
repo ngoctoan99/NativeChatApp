@@ -5,31 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
     tools:context=".MainActivity">
-
-    <ImageView
-
-        android:layout_width="190dp"
-        android:layout_height="177dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:src="@drawable/firebaselogo" />
-    <Button
-        android:id="@+id/btnlogin"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="300dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="350dp"
-        android:text="Login"
-        />
-    <Button
-        android:id="@+id/btnregister"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="400dp"
-        android:text="Register"
-        />
+        android:layout_centerInParent="true">
+        <ImageView
+            android:id="@+id/imageApp"
+            android:layout_width="190dp"
+            android:layout_height="177dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/firebaselogo" />
+        <Button
+            android:id="@+id/btnlogin"
+            android:layout_below="@+id/imageApp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_width="300dp"
+            android:background="@drawable/custom_edittext"
+            android:text="Login" />
+        <Button
+            android:id="@+id/btnregister"
+            android:layout_width="300dp"
+            android:background="@drawable/custom_edittext"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/btnlogin"
+            android:layout_marginTop="20dp"
+            android:text="Register" />
+    </RelativeLayout>
 
 </RelativeLayout>

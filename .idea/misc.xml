@@ -3,66 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable-anydpi/ic_chat_black.xml" value="0.197" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable-anydpi/ic_users_black.xml" value="0.168" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/bg_receiver.xml" value="0.25" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/bg_sender.xml" value="0.3635" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/bgr_border_16.xml" value="0.235" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/custom_background.xml" value="0.1985" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/custom_edittext.xml" value="0.1985" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.1" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/ic_baseline_groups_24.xml" value="0.1115" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.197" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.168" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/ic_baseline_thumb_up_24.xml" value="0.3635" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/ic_like.xml" value="0.3055" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/ic_thumb_up_24_blue.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/drawable/row_group_participant.xml" value="0.1" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_add_new_post.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_chat.xml" value="0.18258426966292135" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_dashboard.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_group_chat.xml" value="0.33" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_group_create.xml" value="0.1822429906542056" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_group_edit.xml" value="0.1537037037037037" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_group_info.xml" value="0.1" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_group_participant.xml" value="0.1" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_login.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_main.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_pick_picture.xml" value="0.18" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_post_detail.xml" value="0.22" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_register.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/activity_there_profile.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/fragment_chat_list.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/fragment_group_chats.xml" value="0.1" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/fragment_home.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/fragment_notification.xml" value="0.29814814814814816" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/fragment_profile.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_chat_left.xml" value="0.5" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_chat_right.xml" value="0.18" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_chatlist.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_comment.xml" value="0.33" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_group_participant.xml" value="0.1" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_groupchat_left.xml" value="0.33" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_groupchat_right.xml" value="0.25" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_groupchats_list.xml" value="0.1" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_notification.xml" value="0.2212962962962963" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_post.xml" value="0.1646039603960396" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/layout/row_users.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/menu/menu_main.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/menu/menu_nav.xml" value="0.3625" />
-        <entry key="..\:/Android_Toan/NativeChatApp/app/src/main/res/xml/paths.xml" value="0.13125" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/drawable/circle_offline.xml" value="0.1" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/drawable/circle_online.xml" value="0.1" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/drawable/custom_edittext.xml" value="0.174" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/drawable/custom_edittext_white.xml" value="0.174" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/drawable/edittext_style.xml" value="0.1" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.253" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_add_new_post.xml" value="0.25" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_chat.xml" value="0.1" />
-        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_login.xml" value="0.3546875" />
-        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_main.xml" value="0.3546875" />
-        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_register.xml" value="0.3546875" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.2421875" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/activity_there_profile.xml" value="0.1" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/circle_online.xml" value="0.1" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/fragment_chat_list.xml" value="0.18" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/fragment_group_chats.xml" value="0.2421875" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/fragment_home.xml" value="0.3546875" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/fragment_profile.xml" value="0.17222222222222222" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/NativeAndroidApp/app/src/main/res/layout/fragment_users.xml" value="0.3546875" />
@@ -75,7 +31,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

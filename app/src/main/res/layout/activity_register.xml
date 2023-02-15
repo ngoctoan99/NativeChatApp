@@ -6,48 +6,66 @@
     android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".activity.RegisterActivity">
+
     <TextView
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="Register"
-        android:textSize="30dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="@color/purple_500"/>
+        android:text="Register Account"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/purple_500"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/editemailres"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="60dp"
-        android:paddingStart="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/bgr_border_16"
-        android:hint="Nhập email đăng ký"
+        android:hint="Nhập email"
+        android:padding="15dp"
+        android:paddingStart="15dp"
         android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/editpassres"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="5dp"
+        android:layout_below="@+id/editemailres"
         android:background="@drawable/bgr_border_16"
-        android:hint="Nhập password đăng ký "
-        android:inputType="textPassword"
+        android:hint="Nhập email"
+        android:padding="15dp"
         android:paddingStart="15dp"
         android:textColorHint="@color/white" />
-    <Button
-        android:id="@+id/btnres1"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Register"
-        android:layout_marginTop="260dp"
-        android:layout_centerHorizontal="true"/>
-    <TextView
-        android:id="@+id/haveaccount"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Have account. Login"
-        android:layout_below="@+id/btnres1"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black"/>
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btnres1"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/custom_edittext"
+            android:text="Register" />
+
+        <TextView
+            android:id="@+id/haveaccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnres1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="150dp"
+            android:text="Have account. Login"
+            android:textColor="@color/black" />
+    </RelativeLayout>
 
 </RelativeLayout>
