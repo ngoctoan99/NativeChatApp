@@ -48,7 +48,6 @@ public class HomeFragment extends Fragment {
     AdapterPost adapterPost;
     int click = 0 ;
     public HomeFragment() {
-        // Required empty public constructor
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,7 +84,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(),""+error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -217,8 +215,8 @@ public class HomeFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_logout) {
-            PreferencesUtils.deleteAll(getContext());
             firebaseAuth.signOut();
+            PreferencesUtils.deleteAll(getContext());
             checkUserStatus();
         }
         if(id == R.id.action_add_newpost) {

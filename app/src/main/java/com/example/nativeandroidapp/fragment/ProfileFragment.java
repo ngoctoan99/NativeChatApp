@@ -216,7 +216,6 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(),""+error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -626,8 +625,8 @@ public class ProfileFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_logout) {
-            PreferencesUtils.deleteAll(getContext());
             firebaseAuth.signOut();
+            PreferencesUtils.deleteAll(getContext());
             checkUserStatus();
         }
         else if(id == R.id.action_add_newpost) {

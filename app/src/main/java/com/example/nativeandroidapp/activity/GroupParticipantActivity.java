@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import com.example.nativeandroidapp.R;
@@ -35,6 +37,7 @@ public class GroupParticipantActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle("Add Participant");
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#CE0288D1")));
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         firebaseAuth = FirebaseAuth.getInstance();

@@ -19,6 +19,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -61,7 +63,6 @@ public class GroupChatActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private String groupId, myGroupRole="";
     private Toolbar toolbar;
-    private ActionBar actionBar;
     private ImageView groupIconIv , btn_back_chat;
     private TextView groupTitle;
     private ImageButton attachBtn, sendBtn;
@@ -226,6 +227,7 @@ public class GroupChatActivity extends AppCompatActivity {
                 showImagePickDialog();
             }
         });
+        toolbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#CE0288D1")));
     }
 
     private void showImagePickDialog() {

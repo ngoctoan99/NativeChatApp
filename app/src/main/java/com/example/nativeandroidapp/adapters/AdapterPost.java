@@ -5,7 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.text.format.DateFormat;
 import android.view.Gravity;
@@ -101,7 +103,10 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder>{
         holder.pTitle.setText(pTitle);
         holder.pDescription.setText(pDescr);
         holder.pLikes.setText(pLikes + " Likes");
+        holder.pLikes.setTextColor(Color.parseColor("#CE0288D1"));
+
         holder.pComments.setText(pComments + " Comments");
+        holder.pComments.setTextColor(Color.parseColor("#CE0288D1"));
 
         setLikes(holder , pId);
         try{

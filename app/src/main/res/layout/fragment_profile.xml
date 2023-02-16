@@ -13,13 +13,13 @@
     <RelativeLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
+
         <ImageView
             android:id="@+id/covertv"
             android:layout_width="match_parent"
-            android:scaleType="fitXY"
             android:layout_height="100dp"
-            android:background="@color/purple_500">
-        </ImageView>
+            android:background="@color/blueapp"
+            android:scaleType="fitXY"></ImageView>
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_height="100dp"
@@ -31,7 +31,7 @@
                 android:layout_width="100dp"
                 android:layout_height="90dp"
                 android:scaleType="fitXY"
-                android:background="@color/purple_200"
+                android:background="@color/blueapp"
                 android:layout_marginStart="30dp"
                 android:padding="10dp"
                 android:src="@drawable/ic_face"
@@ -80,7 +80,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/blueapp"
         />
 
 </RelativeLayout>

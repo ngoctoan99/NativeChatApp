@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -54,6 +56,7 @@ public class GroupInfoActivity extends AppCompatActivity {
         actionBar.setTitle("Group Information");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#CE0288D1")));
         groupId = getIntent().getStringExtra("groupId");
         firebaseAuth = FirebaseAuth.getInstance();
         initView();

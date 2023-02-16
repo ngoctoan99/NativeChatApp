@@ -3,6 +3,7 @@ package com.example.nativeandroidapp.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -28,7 +29,7 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText editemail, editpass ;
-    Button btnres1;
+    CardView btnres1;
     TextView txtlogin;
     ProgressDialog progressDialog;
     private FirebaseAuth auth;
@@ -38,10 +39,11 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setTitle("Create Account");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-
+        actionBar.hide();
 
         editemail = findViewById(R.id.editemailres);
         editpass = findViewById(R.id.editpassres);

@@ -3,6 +3,7 @@ package com.example.nativeandroidapp.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -43,7 +44,7 @@ import java.util.HashMap;
 public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 100;
     EditText editemailin, editpassin;
-    Button btnin;
+    CardView btnin;
     TextView txtres , txtrecover;
     SignInButton GoogleLogin;
     private FirebaseAuth auth;
@@ -55,9 +56,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setTitle("Login");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.hide();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()

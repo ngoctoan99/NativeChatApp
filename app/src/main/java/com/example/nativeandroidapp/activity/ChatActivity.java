@@ -18,6 +18,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -111,6 +113,7 @@ public class ChatActivity extends AppCompatActivity {
         Toolbar toolbar1 = findViewById(R.id.toolbarsds);
         setSupportActionBar(toolbar1);
         toolbar1.setTitle("");
+        toolbar1.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#CE0288D1")));
         recyclerView = findViewById(R.id.chat_recyclerview);
         profiletv = findViewById(R.id.profiless);
         nametv = findViewById(R.id.yournametv);

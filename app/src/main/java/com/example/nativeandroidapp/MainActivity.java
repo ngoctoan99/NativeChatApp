@@ -3,6 +3,7 @@ package com.example.nativeandroidapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,7 +24,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnregister , btnlogin;
+    CardView btnregister , btnlogin;
     private FirebaseAuth auth;
     ProgressDialog pd;
     @Override

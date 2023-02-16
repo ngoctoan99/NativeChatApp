@@ -15,7 +15,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -76,6 +78,7 @@ public class AddNewPost extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_post);
         actionBar = getSupportActionBar();
         actionBar.setTitle("Add New Post");
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#CE0288D1")));
         firebaseAuth = FirebaseAuth.getInstance();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);

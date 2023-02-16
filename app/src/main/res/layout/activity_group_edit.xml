@@ -35,12 +35,13 @@
         android:inputType="textMultiLine|textCapSentences"
         android:minHeight="100dp"
         android:padding="10dp" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/editGroupBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_baseline_done_24"
-        android:backgroundTint="#9B1AC9"/>
+        android:backgroundTint="#CE0288D1"
+        android:src="@drawable/ic_baseline_done_24" />
 </RelativeLayout>

@@ -100,7 +100,7 @@
                        android:layout_height="wrap_content"
                        android:text="1.2k Likes"
                        android:layout_margin="5dp"
-                       android:textColor="@color/purple_200"
+                       android:textColor="@color/blueapp"
                        />
                    <TextView
                        android:id="@+id/pComment"
@@ -110,7 +110,7 @@
                        android:layout_height="wrap_content"
                        android:text="1.2k Comments"
                        android:layout_margin="5dp"
-                       android:textColor="@color/purple_200"
+                       android:textColor="@color/blueapp"
                        />
                </LinearLayout>
                 <View
@@ -212,11 +212,11 @@
 
         <ImageButton
             android:id="@+id/sendBtn"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:background="@color/white"
             android:src="@drawable/ic_send" />
     </RelativeLayout>

@@ -10,30 +10,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
+
         <ImageView
             android:id="@+id/imageApp"
-            android:layout_width="190dp"
-            android:layout_height="177dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/firebaselogo" />
-        <Button
+            android:src="@drawable/logoapp4" />
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/btnlogin"
-            android:layout_below="@+id/imageApp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
             android:layout_width="300dp"
-            android:background="@drawable/custom_edittext"
-            android:text="Login" />
-        <Button
+            android:layout_height="50dp"
+            app:cardCornerRadius="20dp"
+            android:backgroundTint="#CE0288D1"
+            android:layout_below="@+id/imageApp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp" >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="LOGIN"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="15sp"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/btnregister"
             android:layout_width="300dp"
-            android:background="@drawable/custom_edittext"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_height="50dp"
+            app:cardCornerRadius="20dp"
+            android:backgroundTint="#CE0288D1"
             android:layout_below="@+id/btnlogin"
-            android:layout_marginTop="20dp"
-            android:text="Register" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="REGISTER"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="15sp"/>
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
 </RelativeLayout>

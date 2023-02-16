@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -51,6 +53,7 @@ public class ThereProfileActivity extends AppCompatActivity {
         actionBar.setTitle("Profile");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#CE0288D1")));
         postRecyclerView = findViewById(R.id.recyclerView_posts);
         firebaseAuth = FirebaseAuth.getInstance();
         Intent intent = getIntent();
@@ -159,6 +162,8 @@ public class ThereProfileActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         menu.findItem(R.id.action_add_newpost).setVisible(false);
         menu.findItem(R.id.action_create_group).setVisible(false);
+        menu.findItem(R.id.action_add_participant).setVisible(false);
+        menu.findItem(R.id.action_information_group).setVisible(false);
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

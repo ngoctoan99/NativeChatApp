@@ -61,6 +61,7 @@
         android:background="@drawable/custom_edittext"
         android:layout_gravity="end"
         android:layout_width="90dp"
+        android:backgroundTint="@color/blueapp"
         android:layout_marginTop="10dp"
         android:layout_height="40dp"/>
     </LinearLayout>
