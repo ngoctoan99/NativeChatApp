@@ -31,8 +31,7 @@
                 android:id="@+id/pImage"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:background="@color/white"
-                />
+                android:background="@color/white" />
 
             <TextView
                 android:id="@+id/textImage"

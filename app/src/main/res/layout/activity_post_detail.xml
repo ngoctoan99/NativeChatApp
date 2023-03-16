@@ -179,7 +179,7 @@
             android:layout_width="match_parent"
             android:layout_margin="5dp"
             tools:listitem="@layout/row_comment"
-            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
 
@@ -195,7 +195,7 @@
             android:layout_height="50dp"
             android:src="@drawable/ic_face_default" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/commentEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

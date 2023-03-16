@@ -15,12 +15,27 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,7 +48,10 @@ import android.widget.Toast;
 import com.example.nativeandroidapp.MainActivity;
 import com.example.nativeandroidapp.R;
 import com.example.nativeandroidapp.adapters.AdapterComments;
+import com.example.nativeandroidapp.adapters.AdapterHashTag;
+import com.example.nativeandroidapp.adapters.AdapterUsers;
 import com.example.nativeandroidapp.models.ModelComment;
+import com.example.nativeandroidapp.models.ModelUsers;
 import com.example.nativeandroidapp.ultil.PreferencesUtils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -69,13 +87,15 @@ public class PostDetailActivity extends AppCompatActivity {
     Button likeBtn , shareBtn ;
     LinearLayout profileLayout ;
     String hisUid ;
-    EditText commentEt ;
+    AutoCompleteTextView commentEt ;
     ImageButton sendBtn ;
     ImageView cAvatarIv ;
     RecyclerView listComment ;
     ProgressDialog pd ;
     List<ModelComment> commentList;
     AdapterComments adapterComments ;
+    SpannableString mspanable;
+    int hashTagIsComing = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -358,6 +378,22 @@ public class PostDetailActivity extends AppCompatActivity {
         profileLayout = findViewById(R.id.profileLayout);
 
         commentEt = findViewById(R.id.commentEt);
+
+        getAllUsers();
+       commentEt.addTextChangedListener(new TextWatcher() {
+           @Override
+           public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+           }
+           @Override
+           public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+           }
+
+           @Override
+           public void afterTextChanged(Editable editable) {
+
+           }
+       });
+
         sendBtn = findViewById(R.id.sendBtn);
         cAvatarIv = findViewById(R.id.cAvatarIv);
 
@@ -377,9 +413,7 @@ public class PostDetailActivity extends AppCompatActivity {
         loadUserInfo();
         setLikes();
         loadComment();
-
     }
-
     private void loadComment() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         listComment.setLayoutManager(linearLayoutManager);
@@ -439,6 +473,55 @@ public class PostDetailActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+    private void getAllUsers() {
+        FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        List<ModelUsers> list = new ArrayList<>();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    ModelUsers users = ds.getValue(ModelUsers.class);
+                    if(!users.getUid().equals(fuser.getUid())) {
+                        list.add(users);
+                    }
+                    setDataHashTag(list);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void setDataHashTag(List<ModelUsers> usersList) {
+        AdapterHashTag adapterHashTag = new AdapterHashTag(PostDetailActivity.this, R.layout.row_hashtag,usersList);
+        commentEt.setAdapter(adapterHashTag);
+        commentEt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mspanable = new SpannableString(usersList.get(i).getName());
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View textView) {
+                        Toast.makeText(PostDetailActivity.this, "Name user hashtag", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        super.updateDrawState(ds);
+                        ds.setUnderlineText(false);
+                    }
+                };
+                mspanable.setSpan(clickableSpan, 0, commentEt.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                commentEt.setText(mspanable);
+                commentEt.setSelection(commentEt.length());
+                commentEt.setMovementMethod(LinkMovementMethod.getInstance());
+                commentEt.setHighlightColor(Color.BLUE);
+            }
+        });
     }
 
     private void loadUserInfo() {
@@ -586,4 +669,6 @@ public class PostDetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
