@@ -40,9 +40,13 @@ public class AdapterHashTag extends ArrayAdapter<ModelUsers> {
         TextView tvname = convertView.findViewById(R.id.nameHashTagTv);
         TextView tvemail = convertView.findViewById(R.id.emailHashTagTv);
         ModelUsers user = getItem(position);
-        Picasso.get().load(user.getImage())
-                .placeholder(R.drawable.ic_face_custom)
-                .into(imagesearch);
+        try{
+            Picasso.get().load(user.getImage())
+                    .placeholder(R.drawable.ic_face_custom)
+                    .into(imagesearch);
+        }catch (Exception e){
+            imagesearch.setImageResource(R.drawable.ic_face_custom);
+        }
         tvname.setText(user.getName());
         tvemail.setText(user.getEmail());
         return convertView;

@@ -2,10 +2,12 @@ package com.example.nativeandroidapp.models;
 
 public class ModelComment {
     String cId, comment, timestamp , uDp , uEmail, uName ,uid ;
+    String hashtagId = "" ;
 
     public ModelComment() {
     }
-    public ModelComment(String cId, String comment, String timestamp, String uDp, String uEmail, String uName, String uid) {
+
+    public ModelComment(String cId, String comment, String timestamp, String uDp, String uEmail, String uName, String uid, String hashtagId) {
         this.cId = cId;
         this.comment = comment;
         this.timestamp = timestamp;
@@ -13,7 +15,9 @@ public class ModelComment {
         this.uEmail = uEmail;
         this.uName = uName;
         this.uid = uid;
+        this.hashtagId = hashtagId;
     }
+
     public String getcId() {
         return cId;
     }
@@ -68,5 +72,13 @@ public class ModelComment {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getHashtagId() {
+        return hashtagId;
+    }
+
+    public void setHashtagId(String hashtagId) {
+        this.hashtagId = hashtagId;
     }
 }

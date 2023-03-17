@@ -74,6 +74,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class PostDetailActivity extends AppCompatActivity {
 
@@ -95,7 +96,7 @@ public class PostDetailActivity extends AppCompatActivity {
     List<ModelComment> commentList;
     AdapterComments adapterComments ;
     SpannableString mspanable;
-    int hashTagIsComing = 0;
+    String hashTag = "" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +115,7 @@ public class PostDetailActivity extends AppCompatActivity {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postComment();
+                postComment(hashTag);
             }
         });
 
@@ -218,7 +219,7 @@ public class PostDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void postComment() {
+    private void postComment(String hashTags) {
         pd  = new ProgressDialog(this);
         pd.setMessage("Adding comment ...");
         String comment = commentEt.getText().toString().trim();
@@ -236,6 +237,7 @@ public class PostDetailActivity extends AppCompatActivity {
         hashMap.put("uEmail",myEmail);
         hashMap.put("uDp",myDp);
         hashMap.put("uName", myName);
+        hashMap.put("hashtagId",hashTag);
 
         ref.child(timeStamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -244,8 +246,13 @@ public class PostDetailActivity extends AppCompatActivity {
                 Toast.makeText(PostDetailActivity.this, "Comment Added ...", Toast.LENGTH_SHORT).show();
                 commentEt.setText("");
                 updateCommentCount();
+                if(!Objects.equals(hashTag, "")){
+                    addToHisNotificationHashTag(""+ hashTag, ""+postId,myName+" mentions you in  post of " + nameTv.getText().toString());
+                }else {
+                    addToHisNotification(""+ hisUid, ""+postId,"Comment on your post");
+                }
 
-                addToHisNotification(""+ hisUid, ""+postId,"Comment on your post");
+                hashTag = "";
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -378,21 +385,7 @@ public class PostDetailActivity extends AppCompatActivity {
         profileLayout = findViewById(R.id.profileLayout);
 
         commentEt = findViewById(R.id.commentEt);
-
         getAllUsers();
-       commentEt.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-           }
-           @Override
-           public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-           }
-
-           @Override
-           public void afterTextChanged(Editable editable) {
-
-           }
-       });
 
         sendBtn = findViewById(R.id.sendBtn);
         cAvatarIv = findViewById(R.id.cAvatarIv);
@@ -451,7 +444,32 @@ public class PostDetailActivity extends AppCompatActivity {
     }
     private void  addToHisNotification(String hisUid, String pId,String notification){
         if(hisUid.equals(myUid)){
+            Log.d("toansd" , "test");
+        }else {
+            String timeStamp = "" + System.currentTimeMillis();
+            HashMap<Object, String> hashMap = new HashMap<>() ;
+            hashMap.put("pId",pId);
+            hashMap.put("timeStamp",timeStamp);
+            hashMap.put("pUid",hisUid);
+            hashMap.put("notification",notification);
+            hashMap.put("sUid",myUid);
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+            ref.child(hisUid).child("Notification").child(timeStamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
 
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+        }
+    }
+    private void  addToHisNotificationHashTag(String hisUid, String pId,String notification){
+        if(hisUid.equals(myUid)){
+            Log.d("toansd" , "test");
         }else {
             String timeStamp = "" + System.currentTimeMillis();
             HashMap<Object, String> hashMap = new HashMap<>() ;
@@ -483,6 +501,8 @@ public class PostDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds : snapshot.getChildren()){
                     ModelUsers users = ds.getValue(ModelUsers.class);
+                    assert users != null;
+                    assert fuser != null;
                     if(!users.getUid().equals(fuser.getUid())) {
                         list.add(users);
                     }
@@ -502,11 +522,12 @@ public class PostDetailActivity extends AppCompatActivity {
         commentEt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                hashTag = usersList.get(i).getUid() ;
                 mspanable = new SpannableString(usersList.get(i).getName());
                 ClickableSpan clickableSpan = new ClickableSpan() {
                     @Override
                     public void onClick(View textView) {
-                        Toast.makeText(PostDetailActivity.this, "Name user hashtag", Toast.LENGTH_SHORT).show();
+
                     }
                     @Override
                     public void updateDrawState(TextPaint ds) {
@@ -519,7 +540,6 @@ public class PostDetailActivity extends AppCompatActivity {
                 commentEt.setText(mspanable);
                 commentEt.setSelection(commentEt.length());
                 commentEt.setMovementMethod(LinkMovementMethod.getInstance());
-                commentEt.setHighlightColor(Color.BLUE);
             }
         });
     }
